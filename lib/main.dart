@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: Color.fromARGB(255, 34, 255, 181)), // color general
         ),
         home: MyHomePage(),
       ),
@@ -94,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(
               child: Container(
-                color: Theme.of(context).colorScheme.primaryContainer,
+                color: Color.fromARGB(246, 170, 95, 154), // fondo ppal
                 child: page,
               ),
             ),
@@ -123,7 +124,7 @@ class GeneratorPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           BigCard(pair: pair),
-          SizedBox(height: 10),
+          SizedBox(height: 10), // separación caja - botones
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -161,19 +162,35 @@ class BigCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
+      color: theme.colorScheme.onPrimary, // letras tarjeta
     );
 
-    return Card(
-      color: theme.colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Text(
-          pair.asLowerCase,
-          style: style,
-          semanticsLabel: "${pair.first} ${pair.second}",
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Define el tamaño de la tarjeta como un porcentaje del tamaño de la pantalla
+        final cardWidth =
+            constraints.maxWidth * 0.5; // 50% del ancho de la pantalla
+        final cardHeight =
+            constraints.maxHeight * 0.5; // 50% de la altura de la pantalla
+
+        return Center(
+          child: Card(
+            color: Color.fromARGB(99, 0, 89, 255), // color tarjeta
+            child: Container(
+              width: cardWidth,
+              height: cardHeight,
+              padding: const EdgeInsets.all(50), // padding tarjeta
+              child: Center(
+                child: Text(
+                  pair.asPascalCase, // letras tarjeta
+                  style: style,
+                  semanticsLabel: "${pair.first} ${pair.second}",
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -199,7 +216,7 @@ class FavoritesPage extends StatelessWidget {
         for (var pair in appState.favorites)
           ListTile(
             leading: Icon(Icons.favorite),
-            title: Text(pair.asLowerCase),
+            title: Text(pair.asPascalCase),
           ),
       ],
     );
