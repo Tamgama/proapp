@@ -147,7 +147,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         body: Center(child: body[_currentIndex]),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.cyan, // NO TIRA
           currentIndex: _currentIndex,
           onTap: (int newIndex) {
             setState(() {
