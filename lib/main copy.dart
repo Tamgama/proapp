@@ -39,11 +39,11 @@ class MyAppState extends ChangeNotifier {
 
   var favorites = <WordPair>[];
 
-  void toggleFavorite() {
-    if (favorites.contains(current)) {
-      favorites.remove(current);
+  void toggleFavorite(WordPair pair) {
+    if (favorites.contains(pair)) {
+      favorites.remove(pair);
     } else {
-      favorites.add(current);
+      favorites.add(pair);
     }
     notifyListeners();
   }
@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
     const Color.fromARGB(255, 231, 221, 133),
     const Color.fromARGB(255, 144, 249, 158),
     Color.fromARGB(255, 123, 200, 219),
-    Color.fromARGB(255, 190, 130, 224)
+    Color.fromARGB(255, 190, 130, 224),
   ];
   var _color = 0;
 
@@ -81,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
       theme: ThemeData(
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           selectedItemColor: Color.fromARGB(255, 75, 4, 206),
+          // el botón seleccionado
           unselectedItemColor: Color.fromARGB(255, 204, 64, 111),
         ),
       ),
@@ -116,12 +117,13 @@ class _MyHomePageState extends State<MyHomePage> {
 //          fixedColor: Colors.black,
           onTap: (int inIndex) {
             setState(() {
-              // las páginas y los colores se unen y muestras por indices
+              // las páginas y los colores se unen y muestran por indices
               _currentPage = inIndex;
               _color = inIndex;
             });
           },
           type: BottomNavigationBarType.shifting,
+          // animación
         ),
       ),
     );
@@ -131,45 +133,8 @@ class _MyHomePageState extends State<MyHomePage> {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pair = appState.current;
-
-    IconData icon;
-    if (appState.favorites.contains(pair)) {
-      icon = Icons.favorite;
-    } else {
-      icon = Icons.favorite_border;
-    }
-
     return Center(
       child: CardList(),
-
-      // Column(
-      //   mainAxisAlignment: MainAxisAlignment.center,
-      //   children: [
-      //     BigCard(pair: pair),
-      //     SizedBox(height: 10), // separación caja - botones
-      //     Row(
-      //       mainAxisSize: MainAxisSize.min,
-      //       children: [
-      //         ElevatedButton.icon(
-      //           onPressed: () {
-      //             appState.toggleFavorite();
-      //           },
-      //           icon: Icon(icon),
-      //           label: Text('Like'),
-      //         ),
-      //         SizedBox(width: 10),
-      //         ElevatedButton(
-      //           onPressed: () {
-      //             appState.getNext();
-      //           },
-      //           child: Text('Next'),
-      //         ),
-      //       ],
-      //     ),
-      //   ],
-      // ),
     );
   }
 }
@@ -203,6 +168,45 @@ class BigCard extends StatelessWidget {
   }
 }
 
+class CardItem extends StatelessWidget {
+  const CardItem({super.key, required this.pair});
+
+  final WordPair pair;
+
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+    var isFav = appState.favorites.contains(pair);
+
+    return Column(
+      // mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        BigCard(pair: pair),
+        SizedBox(height: 10), // separación caja - botones
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton.icon(
+              onPressed: () {
+                appState.toggleFavorite(pair);
+              },
+              icon: Icon(isFav ? Icons.favorite : Icons.favorite_border),
+              label: Text("Like"),
+            ),
+            SizedBox(width: 20), // separación entre botones
+            ElevatedButton(
+              onPressed: () {
+                appState.getNext();
+              },
+              child: Text('Next'),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
 class CardList extends StatelessWidget {
   const CardList({super.key});
 
@@ -215,7 +219,7 @@ class CardList extends StatelessWidget {
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.all(10),
-          child: BigCard(pair: WordPairs[index]),
+          child: CardItem(pair: WordPairs[index]),
         );
       },
     );
@@ -223,7 +227,6 @@ class CardList extends StatelessWidget {
 }
 
 class VideoPage extends StatelessWidget {
-  // aquí se guardan los favs
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -252,6 +255,7 @@ class SearchsPage extends StatelessWidget {
 }
 
 class SavedPage extends StatelessWidget {
+  // aquí se guardan los favs
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
