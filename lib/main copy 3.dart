@@ -8,21 +8,48 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
-  _MyApp createState() => _MyApp();
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => MyAppState(),
+      child: MaterialApp(
+        home: Pantalla1(),
+      ),
+    );
+  }
+}
+
+class MyAppState extends ChangeNotifier {
+  var current = WordPair.random();
+
+  void getNext() {
+    current = WordPair.random();
+    notifyListeners();
+  }
+
+  var favorites = <WordPair>[];
+
+  void toggleFavorite() {
+    if (favorites.contains(current)) {
+      favorites.remove(current);
+    } else {
+      favorites.add(current);
+    }
+    notifyListeners();
+  }
 }
 
 class _MyApp extends State {
   var _currentPage = 0;
   var _pages = [
     //cambia el contenido de cada página
-    Text("Ver casas"),
-    Text("Vídeos 360"),
-    Text("Guardados"),
-    Text("Búsquedas"),
-    Text("Perfil"),
+    Pantalla1(),
+    Pantalla2(),
+    Pantalla3(),
+    Pantalla4(),
+    Pantalla5(),
   ];
   var _colores = [
     Color.fromARGB(255, 206, 149, 149),
@@ -86,46 +113,76 @@ class _MyApp extends State {
   }
 }
 
-// class HomePage extends StatefulWidget {
-//   @override
-//   _HomePageState createState() => _HomePageState();
-// }
-
-// class _HomePageState extends State<HomePage> {
-//   int _currentIndex = 0;
-
-//   final List<Widget> _pantallas = [
-//     Pantalla1(),
-//     Pantalla2(),
-//     Pantalla3(),
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text('proapp')),
-//       body: IndexedStack(
-//         index: _currentIndex,
-//         children: _pantallas,
-//       ),
-
-//         //
-//       ),
-//     );
-//   }
-// }
-
 class Pantalla1 extends StatelessWidget {
   //aquí deberían ir las tarjetas con los favs
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 20,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text('Item $index'),
-        );
-      },
+    var appState = context.watch<MyAppState>();
+    var pair = appState.current;
+
+    IconData icon;
+    if (appState.favorites.contains(pair)) {
+      icon = Icons.favorite;
+    } else {
+      icon = Icons.favorite_border;
+    }
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          BigCard(pair: pair),
+          SizedBox(height: 10), // separación caja - botones
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton.icon(
+                onPressed: () {
+                  appState.toggleFavorite();
+                },
+                icon: Icon(icon),
+                label: Text('Like'),
+              ),
+              SizedBox(width: 10),
+              ElevatedButton(
+                onPressed: () {
+                  appState.getNext();
+                },
+                child: Text('Next'),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BigCard extends StatelessWidget {
+  const BigCard({
+    super.key,
+    required this.pair,
+  });
+
+  final WordPair pair;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final style = theme.textTheme.displayMedium!.copyWith(
+      color: theme.colorScheme.onPrimary, // letras tarjeta
+    );
+
+    return Card(
+      color: Color.fromARGB(99, 0, 89, 255), // color tarjeta
+      child: Padding(
+        padding: const EdgeInsets.all(50), // padding tarjeta
+        child: Text(
+          pair.asPascalCase, // letras tarjeta
+          style: style,
+          semanticsLabel: "${pair.first} ${pair.second}",
+        ),
+      ),
     );
   }
 }
@@ -146,6 +203,48 @@ class Pantalla2 extends StatelessWidget {
 }
 
 class Pantalla3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: 20,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text('Ítem $index'),
+        );
+      },
+    );
+  }
+}
+
+class Pantalla4 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+
+    if (appState.favorites.isEmpty) {
+      return Center(
+        child: Text('No favorites yet.'),
+      );
+    }
+
+    return ListView(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child: Text('You have '
+              '${appState.favorites.length} favorites:'),
+        ),
+        for (var pair in appState.favorites)
+          ListTile(
+            leading: Icon(Icons.favorite),
+            title: Text(pair.asPascalCase),
+          ),
+      ],
+    );
+  }
+}
+
+class Pantalla5 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
