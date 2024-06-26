@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'Namer App',
+        title: 'proApp',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
@@ -56,59 +57,98 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
 
+  var _currentPage = 0;
+  var _pages = [
+    //cambia el contenido de cada página
+    Pantalla1(),
+    Pantalla2(),
+    Pantalla3(),
+    Pantalla4(),
+    Pantalla5(),
+  ];
+  var _colores = [
+    Color.fromARGB(255, 206, 149, 149),
+    const Color.fromARGB(255, 231, 221, 133),
+    const Color.fromARGB(255, 144, 249, 158),
+    Color.fromARGB(255, 123, 200, 219),
+    Color.fromARGB(255, 190, 130, 224)
+  ];
+  var _color = 0;
+
   @override
   Widget build(BuildContext context) {
-    Widget page;
-    switch (selectedIndex) {
-      case 0:
-        page = GeneratorPage();
-        break;
-      case 1:
-        page = FavoritesPage();
-        break;
-      default:
-        throw UnimplementedError('no widget for $selectedIndex');
-    }
-
-    return LayoutBuilder(builder: (context, constraints) {
-      return Scaffold(
-        body: Row(
-          children: [
-            SafeArea(
-              child: NavigationRail(
-                extended: constraints.maxWidth >= 600,
-                destinations: [
-                  NavigationRailDestination(
-                    icon: Icon(Icons.home),
-                    label: Text('Home'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.favorite),
-                    label: Text('Favorites'),
-                  ),
-                ],
-                selectedIndex: selectedIndex,
-                onDestinationSelected: (value) {
-                  setState(() {
-                    selectedIndex = value;
-                  });
-                },
-              ),
-            ),
-            Expanded(
-              child: Container(
-                color: Color.fromARGB(246, 170, 95, 154), // fondo ppal
-                child: page,
-              ),
-            ),
-          ],
+    return MaterialApp(
+      theme: ThemeData(
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedItemColor: Color.fromARGB(255, 75, 4, 206),
+          unselectedItemColor: Color.fromARGB(255, 204, 64, 111),
         ),
-      );
-    });
+      ),
+      home: Scaffold(
+        backgroundColor: _colores[_color],
+        body: Center(
+          child: _pages.elementAt(_currentPage),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Casas',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.play_arrow),
+              label: 'Vídeos',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.lens),
+              label: 'Buscar',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              label: "Favs",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: "Perfil",
+            )
+          ],
+          currentIndex: _currentPage,
+//          fixedColor: Colors.black,
+          onTap: (int inIndex) {
+            setState(() {
+              // las páginas y los colores se unen y muestras por indices
+              _currentPage = inIndex;
+              _color = inIndex;
+            });
+          },
+          type: BottomNavigationBarType.shifting,
+        ),
+      ),
+    );
   }
 }
 
-class GeneratorPage extends StatelessWidget {
+// class MyAppState extends ChangeNotifier {
+//   var current = WordPair.random();
+
+//   void getNext() {
+//     current = WordPair.random();
+//     notifyListeners();
+//   }
+
+//   var favorites = <WordPair>[];
+
+//   void toggleFavorite() {
+//     if (favorites.contains(current)) {
+//       favorites.remove(current);
+//     } else {
+//       favorites.add(current);
+//     }
+//     notifyListeners();
+//   }
+// }
+
+class Pantalla1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -152,36 +192,36 @@ class GeneratorPage extends StatelessWidget {
   }
 }
 
-class BigCard extends StatelessWidget {
-  const BigCard({
-    super.key,
-    required this.pair,
-  });
-
-  final WordPair pair;
-
+class Pantalla2 extends StatelessWidget {
+  // aquí se guardan los favs
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary, // letras tarjeta
-    );
-
-    return Card(
-      color: Color.fromARGB(99, 0, 89, 255), // color tarjeta
-      child: Padding(
-        padding: const EdgeInsets.all(50), // padding tarjeta
-        child: Text(
-          pair.asPascalCase, // letras tarjeta
-          style: style,
-          semanticsLabel: "${pair.first} ${pair.second}",
-        ),
-      ),
+    return ListView.builder(
+      itemCount: 20,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text('Elemento $index'),
+        );
+      },
     );
   }
 }
 
-class FavoritesPage extends StatelessWidget {
+class Pantalla3 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: 20,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text('Ítem $index'),
+        );
+      },
+    );
+  }
+}
+
+class Pantalla4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -205,6 +245,20 @@ class FavoritesPage extends StatelessWidget {
             title: Text(pair.asPascalCase),
           ),
       ],
+    );
+  }
+}
+
+class Pantalla5 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: 20,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text('Ítem $index'),
+        );
+      },
     );
   }
 }
