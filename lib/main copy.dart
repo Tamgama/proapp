@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -16,11 +17,12 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        // theme: ThemeData(
-        //   useMaterial3: true,
-        //   colorScheme: ColorScheme.fromSeed(
-        //       seedColor: Color.fromARGB(255, 34, 255, 181)), // color general
-        // ),
+        title: 'proApp',
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: Color.fromARGB(255, 34, 255, 181)), // color general
+        ),
         home: MyHomePage(),
       ),
     );
@@ -53,40 +55,80 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _currentIndex = 0;
-  List<Widget> body = const [
-    Icon(Icons.home),
-    Icon(Icons.play_arrow),
-    Icon(Icons.favorite),
-    Icon(Icons.lens),
-    Icon(Icons.person),
+  var selectedIndex = 0;
+
+  var _currentPage = 0;
+  var _pages = [
+    //cambia el contenido de cada página
+    HomePage(),
+    VideoPage(),
+    SearchsPage(),
+    SavedPage(),
+    UserProfile(),
   ];
+  var _colores = [
+    Color.fromARGB(255, 206, 149, 149),
+    const Color.fromARGB(255, 231, 221, 133),
+    const Color.fromARGB(255, 144, 249, 158),
+    Color.fromARGB(255, 123, 200, 219),
+    Color.fromARGB(255, 190, 130, 224)
+  ];
+  var _color = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(child: body[_currentIndex]),
+    return MaterialApp(
+      theme: ThemeData(
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedItemColor: Color.fromARGB(255, 75, 4, 206),
+          unselectedItemColor: Color.fromARGB(255, 204, 64, 111),
+        ),
+      ),
+      home: Scaffold(
+        backgroundColor: _colores[_color],
+        body: Center(
+          child: _pages.elementAt(_currentPage),
+        ),
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (int newIndex) {
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Casas',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.play_arrow),
+              label: 'Vídeos',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.lens),
+              label: 'Buscar',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              label: "Favs",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: "Perfil",
+            )
+          ],
+          currentIndex: _currentPage,
+//          fixedColor: Colors.black,
+          onTap: (int inIndex) {
             setState(() {
-              _currentIndex = newIndex;
+              // las páginas y los colores se unen y muestras por indices
+              _currentPage = inIndex;
+              _color = inIndex;
             });
           },
-          items: const [
-            BottomNavigationBarItem(label: "Home", icon: Icon(Icons.home)),
-            BottomNavigationBarItem(
-                label: "Vídeo 360", icon: Icon(Icons.play_arrow)),
-            BottomNavigationBarItem(
-                label: "Guardados", icon: Icon(Icons.favorite)),
-            BottomNavigationBarItem(label: "Búsqueda", icon: Icon(Icons.lens)),
-            BottomNavigationBarItem(label: "Perfil", icon: Icon(Icons.person))
-          ],
-        ));
+          type: BottomNavigationBarType.shifting,
+        ),
+      ),
+    );
   }
 }
 
-class GeneratorPage extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -159,7 +201,36 @@ class BigCard extends StatelessWidget {
   }
 }
 
-class FavoritesPage extends StatelessWidget {
+class VideoPage extends StatelessWidget {
+  // aquí se guardan los favs
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: 20,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text('Elemento $index'),
+        );
+      },
+    );
+  }
+}
+
+class SearchsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: 20,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text('Ítem $index'),
+        );
+      },
+    );
+  }
+}
+
+class SavedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -187,85 +258,16 @@ class FavoritesPage extends StatelessWidget {
   }
 }
 
-class SearchPage extends StatelessWidget {
+class UserProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-
-    if (appState.favorites.isEmpty) {
-      return Center(
-        child: Text('No hay búsquedas.'),
-      );
-    }
-
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text('You have '
-              '${appState.favorites.length} favorites:'),
-        ),
-        for (var pair in appState.favorites)
-          ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text(pair.asPascalCase),
-          ),
-      ],
-    );
-  }
-}
-
-class VideoPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    if (appState.favorites.isEmpty) {
-      return Center(
-        child: Text('No hay  guardados.'),
-      );
-    }
-
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text('You have '
-              '${appState.favorites.length} favorites:'),
-        ),
-        for (var pair in appState.favorites)
-          ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text(pair.asPascalCase),
-          ),
-      ],
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-
-    if (appState.favorites.isEmpty) {
-      return Center(
-        child: Text('No hay búsquedas.'),
-      );
-    }
-
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text('You have '
-              '${appState.favorites.length} favorites:'),
-        ),
-        for (var pair in appState.favorites)
-          ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text(pair.asPascalCase),
-          ),
-      ],
+    return ListView.builder(
+      itemCount: 20,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text('Ítem $index'),
+        );
+      },
     );
   }
 }
