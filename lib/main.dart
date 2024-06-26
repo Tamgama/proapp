@@ -128,26 +128,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-// class MyAppState extends ChangeNotifier {
-//   var current = WordPair.random();
-
-//   void getNext() {
-//     current = WordPair.random();
-//     notifyListeners();
-//   }
-
-//   var favorites = <WordPair>[];
-
-//   void toggleFavorite() {
-//     if (favorites.contains(current)) {
-//       favorites.remove(current);
-//     } else {
-//       favorites.add(current);
-//     }
-//     notifyListeners();
-//   }
-// }
-
 class Pantalla1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -187,6 +167,35 @@ class Pantalla1 extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class BigCard extends StatelessWidget {
+  const BigCard({
+    super.key,
+    required this.pair,
+  });
+
+  final WordPair pair;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final style = theme.textTheme.displayMedium!.copyWith(
+      color: theme.colorScheme.onPrimary, // letras tarjeta
+    );
+
+    return Card(
+      color: Color.fromARGB(99, 0, 89, 255), // color tarjeta
+      child: Padding(
+        padding: const EdgeInsets.all(50), // padding tarjeta
+        child: Text(
+          pair.asPascalCase, // letras tarjeta
+          style: style,
+          semanticsLabel: "${pair.first} ${pair.second}",
+        ),
       ),
     );
   }
