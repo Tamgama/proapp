@@ -36,7 +36,7 @@ class _MyApp extends State {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "BottomNavigationBar",
+        title: "copy 2",
         home: Scaffold(
             backgroundColor: _colores[_color],
             // el color que ya se ha dado arriba, si no, se cambian todos

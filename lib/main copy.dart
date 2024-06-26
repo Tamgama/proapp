@@ -16,12 +16,11 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'proApp',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: Color.fromARGB(255, 34, 255, 181)), // color general
-        ),
+        // theme: ThemeData(
+        //   useMaterial3: true,
+        //   colorScheme: ColorScheme.fromSeed(
+        //       seedColor: Color.fromARGB(255, 34, 255, 181)), // color general
+        // ),
         home: MyHomePage(),
       ),
     );
@@ -52,85 +51,6 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   var selectedIndex = 0;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // a qué página va cada botón
-//     Widget page;
-//     switch (selectedIndex) {
-//       case 0:
-//         page = GeneratorPage(); // home
-//         break;
-//       case 1:
-//         page = FavoritesPage(); // guardados
-//         break;
-//       case 2:
-//         page = SearchPage(); // home
-//         break;
-//       case 3:
-//         page = VideoPage(); // videos
-//         break;
-//       case 4:
-//         page = ProfilePage(); // perfil
-//         break;
-//       default:
-//         throw UnimplementedError('no widget for $selectedIndex');
-//     }
-
-//     return LayoutBuilder(builder: (context, constraints) {
-//       return Scaffold(
-//         body: Row(
-//           children: [
-//             SafeArea(
-//               child: NavigationRail(
-//                 indicatorColor: Colors.cyan,
-//                 useIndicator: true,
-//                 extended: constraints.maxWidth >= 600,
-//                 destinations: [
-//                   NavigationRailDestination(
-//                     icon: Icon(Icons.home),
-//                     label: Text('Home'),
-//                   ),
-//                   NavigationRailDestination(
-//                     icon: Icon(Icons.favorite),
-//                     label: Text('Guardados'),
-//                   ),
-//                   NavigationRailDestination(
-//                     icon: Icon(Icons.lens),
-//                     label: Text('Búsquedas'),
-//                   ),
-//                   NavigationRailDestination(
-//                     icon: Icon(Icons.play_arrow),
-//                     label: Text('Vídeo 360'),
-//                   ),
-//                   NavigationRailDestination(
-//                     icon: Icon(Icons.person),
-//                     label: Text('Perfil'),
-//                   ),
-//                 ],
-//                 selectedIndex: selectedIndex,
-//                 onDestinationSelected: (value) {
-//                   setState(() {
-//                     selectedIndex = value;
-//                   });
-//                 },
-//               ),
-//             ),
-//             Expanded(
-//               child: Container(
-//                 color: Color.fromARGB(246, 170, 95, 154), // fondo ppal
-//                 child: page,
-//               ),
-//             ),
-//           ],
-//         ),
-//       );
-//     });
-//   }
-// }
 
 class _MyHomePageState extends State<MyHomePage> {
   var _currentIndex = 0;
