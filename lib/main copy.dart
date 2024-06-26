@@ -16,18 +16,19 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'proApp',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: Color.fromARGB(255, 34, 255, 181)), // color general
-        ),
+        // title: 'proApp',
+        // theme: ThemeData(
+        //   useMaterial3: true,
+        //   colorScheme: ColorScheme.fromSeed(
+        //       seedColor: Color.fromARGB(255, 34, 255, 181)), // color general
+        // ),
         home: MyHomePage(),
       ),
     );
   }
 }
 
+// modificaciones de una u otra página que alteran las demás u otras funcionalidades
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
 
@@ -141,32 +142,34 @@ class HomePage extends StatelessWidget {
     }
 
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          BigCard(pair: pair),
-          SizedBox(height: 10), // separación caja - botones
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  appState.toggleFavorite();
-                },
-                icon: Icon(icon),
-                label: Text('Like'),
-              ),
-              SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  appState.getNext();
-                },
-                child: Text('Next'),
-              ),
-            ],
-          ),
-        ],
-      ),
+      child: CardList(),
+
+      // Column(
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   children: [
+      //     BigCard(pair: pair),
+      //     SizedBox(height: 10), // separación caja - botones
+      //     Row(
+      //       mainAxisSize: MainAxisSize.min,
+      //       children: [
+      //         ElevatedButton.icon(
+      //           onPressed: () {
+      //             appState.toggleFavorite();
+      //           },
+      //           icon: Icon(icon),
+      //           label: Text('Like'),
+      //         ),
+      //         SizedBox(width: 10),
+      //         ElevatedButton(
+      //           onPressed: () {
+      //             appState.getNext();
+      //           },
+      //           child: Text('Next'),
+      //         ),
+      //       ],
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
@@ -196,6 +199,25 @@ class BigCard extends StatelessWidget {
           semanticsLabel: "${pair.first} ${pair.second}",
         ),
       ),
+    );
+  }
+}
+
+class CardList extends StatelessWidget {
+  const CardList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final WordPairs = generateWordPairs().take(10).toList();
+
+    return ListView.builder(
+      itemCount: WordPairs.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.all(10),
+          child: BigCard(pair: WordPairs[index]),
+        );
+      },
     );
   }
 }
