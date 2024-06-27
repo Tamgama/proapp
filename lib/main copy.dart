@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -65,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
     SearchsPage(),
     SavedPage(),
     UserProfile(),
+    Pantalla1(),
   ];
   var _colores = [
     Color.fromARGB(255, 206, 149, 149),
@@ -186,19 +188,17 @@ class CardItem extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
+            SizedBox(), // separación entre botones
+            ElevatedButton.icon(
+                onPressed: () {},
+                icon: Icon(Icons.calendar_month),
+                label: Text("cita")),
             ElevatedButton.icon(
               onPressed: () {
                 appState.toggleFavorite(pair);
               },
               icon: Icon(isFav ? Icons.favorite : Icons.favorite_border),
               label: Text("Like"),
-            ),
-            SizedBox(width: 20), // separación entre botones
-            ElevatedButton(
-              onPressed: () {
-                appState.getNext();
-              },
-              child: Text('Next'),
             ),
           ],
         ),
@@ -207,6 +207,7 @@ class CardItem extends StatelessWidget {
   }
 }
 
+// lista de tarjetas
 class CardList extends StatelessWidget {
   const CardList({super.key});
 
