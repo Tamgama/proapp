@@ -17,6 +17,7 @@ dependencies:
   provider: ^6.0.0
 
   animate_do: ^3.3.4
+ 
 
 dev_dependencies:
   flutter_test:
@@ -26,5 +27,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
+  assets:
+    - proapp/assets/casa1.png
+    - proapp/assets/casa2.png
+    - proapp/assets/casa3.png
 

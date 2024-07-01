@@ -32,10 +32,9 @@ class MyApp extends StatelessWidget {
 // modificaciones de una u otra página que alteran las demás u otras funcionalidades
 class MyAppState extends ChangeNotifier {
   final List<String> images = [
-    'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0',
-    'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7',
-    'https://images.unsplash.com/photo-1498050108023-c5249f4df085',
-    'https://images.unsplash.com/photo-1554135814-6e739b2bd386',
+    "proapp/assets/casa1.png",
+    "proapp/assets/casa2.png",
+    "proapp/assets/casa3.png",
     // añade más URLs de imágenes aquí
   ];
 
@@ -53,12 +52,13 @@ class MyAppState extends ChangeNotifier {
   var favorites = <String>[];
 
   void toggleFavorite(String imageUrl) {
+    //si está ya en favs, lo quita, y si no, lo añade
     if (favorites.contains(imageUrl)) {
       favorites.remove(imageUrl);
     } else {
       favorites.add(imageUrl);
     }
-    notifyListeners();
+    notifyListeners(); //pa q se actualice la interfaz donde se utiliza esta clase
   }
 }
 
