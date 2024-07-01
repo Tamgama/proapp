@@ -1,5 +1,3 @@
-import 'package:proapp/main.dart';
-import 'dart:ui';
 import 'package:animate_do/animate_do.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
@@ -34,13 +32,10 @@ class MyApp extends StatelessWidget {
 // modificaciones de una u otra página que alteran las demás u otras funcionalidades
 class MyAppState extends ChangeNotifier {
   final List<String> images = [
-    'https://www.pexels.com/es-es/foto/hervidor-negro-junto-a-los-agitadores-de-condimentos-y-frutas-y-plantas-verdes-en-la-bandeja-en-la-mesa-de-madera-marron-1080696/',
-    'https://www.pexels.com/es-es/foto/mesa-redonda-de-madera-marron-entre-dos-sillas-y-una-silla-otomana-2079246/',
-    'https://www.pexels.com/es-es/foto/cuatro-sillas-de-madera-marron-2635038/',
-    'https://www.pexels.com/es-es/foto/escritorio-de-madera-marron-con-silla-rodante-y-estantes-cerca-de-la-ventana-667838/',
-    "https://www.pexels.com/es-es/foto/foto-de-plantas-en-la-mesa-1005058/",
-    "https://www.pexels.com/es-es/foto/area-de-escalera-2121121/",
-    "https://www.pexels.com/es-es/foto/casa-de-madera-blanca-de-2-pisos-cerca-de-arbol-280229/",
+    'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0',
+    'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7',
+    'https://images.unsplash.com/photo-1498050108023-c5249f4df085',
+    'https://images.unsplash.com/photo-1554135814-6e739b2bd386',
     // añade más URLs de imágenes aquí
   ];
 
