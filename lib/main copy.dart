@@ -1,9 +1,9 @@
 import 'dart:ui';
-
+import 'package:animate_do/animate_do.dart';
 import 'package:english_words/english_words.dart';
-import 'package:flutter/material.dart';
-import 'package:proapp/main.dart';
+import 'package:flutter/material.dart'; //patron de diseño, apariencia
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(MyApp());
