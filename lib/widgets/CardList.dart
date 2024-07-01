@@ -6,33 +6,44 @@ import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class BigCard extends StatelessWidget {
-  const BigCard({
-    super.key,
-    required this.pair,
-  });
-
-  final WordPair pair;
+class CardList extends StatelessWidget {
+  const CardList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
-    );
+    var appState = context.watch<MyAppState>();
+    final imageUrls = appState.images.take(10).toList();
 
+    return ListView.builder(
+      itemCount: imageUrls.length,
+      itemBuilder: (context, index) {
+        return CardItem(imageUrl: imageUrls[index]);
+      },
+    );
+  }
+}
+
+class BigCard extends StatelessWidget {
+  const BigCard({
+    super.key,
+    required this.imageUrl,
+  });
+
+  final String imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       height: 200,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Color.fromARGB(98, 255, 0, 140),
-        // borderRadius: BorderRadius.circular(10),
       ),
       child: Center(
-        child: Text(
-          pair.asPascalCase,
-          style: style,
-          semanticsLabel: "${pair.first} ${pair.second}",
+        child: Image.network(
+          imageUrl,
+          fit: BoxFit.cover,
+          width: double.infinity,
         ),
       ),
     );
@@ -40,14 +51,14 @@ class BigCard extends StatelessWidget {
 }
 
 class CardItem extends StatelessWidget {
-  const CardItem({super.key, required this.pair});
+  const CardItem({super.key, required this.imageUrl});
 
-  final WordPair pair;
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-    var isFav = appState.favorites.contains(pair);
+    var isFav = appState.favorites.contains(imageUrl);
 
     return Container(
       margin: const EdgeInsets.all(10),
@@ -59,13 +70,13 @@ class CardItem extends StatelessWidget {
           BoxShadow(
               color: Color.fromARGB(41, 0, 0, 0),
               blurRadius: 6,
-              offset: Offset(2, 2)),
+              offset: Offset(0, 3)),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BigCard(pair: pair),
+          BigCard(imageUrl: imageUrl),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Row(
@@ -79,7 +90,7 @@ class CardItem extends StatelessWidget {
                 SizedBox(width: 8),
                 ElevatedButton.icon(
                   onPressed: () {
-                    appState.toggleFavorite(pair);
+                    appState.toggleFavorite(imageUrl);
                   },
                   icon: Icon(isFav ? Icons.favorite : Icons.favorite_border),
                   label: Text("Like"),
@@ -95,22 +106,6 @@ class CardItem extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class CardList extends StatelessWidget {
-  const CardList({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final wordPairs = generateWordPairs().take(10).toList();
-
-    return ListView.builder(
-      itemCount: wordPairs.length,
-      itemBuilder: (context, index) {
-        return CardItem(pair: wordPairs[index]);
-      },
     );
   }
 }
