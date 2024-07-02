@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:proapp/widgets/CardList.dart';
+import 'package:proapp/widgets/card_list.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -35,6 +35,9 @@ class MyAppState extends ChangeNotifier {
     "proapp/assets/casa1.png",
     "proapp/assets/casa2.png",
     "proapp/assets/casa3.png",
+    "proapp/assets/casa4.png",
+    "proapp/assets/casa5.png",
+    "proapp/assets/casa6.png",
     // añade más URLs de imágenes aquí
   ];
 

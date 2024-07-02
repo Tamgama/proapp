@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.10+1
 
   english_words: ^4.0.0
@@ -27,8 +29,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
   assets:
-    - proapp/assets/casa1.png
-    - proapp/assets/casa2.png
-    - proapp/assets/casa3.png
+    - assets/casa1.png
+    - assets/casa2.png
+    - assets/casa3.png
+    - assets/casa4.png
+    - assets/casa5.png
+    - assets/casa6.png
 

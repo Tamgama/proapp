@@ -33,19 +33,22 @@ class CardItem extends StatelessWidget {
     var isFav = appState.favorites.contains(imagePath);
 
     return Container(
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
+      // marco-fondo de cada post
+      margin: const EdgeInsets.only(
+          left: 10, right: 10, bottom: 5, top: 5), // márgenes
+      padding: const EdgeInsets.all(10), // separación del contenido
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 255, 242, 215), //color marco
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Color.fromARGB(41, 0, 0, 0),
-            blurRadius: 6,
-            offset: Offset(0, 3),
+          color: Color.fromARGB(255, 255, 250, 239), //color marco
+          border: Border.all(color: Color.fromARGB(255, 121, 107, 78)) //borde externo
+          // borderRadius: BorderRadius.circular(10),
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Color.fromARGB(255, 255, 0, 0),
+          //     blurRadius: 6,
+          //     offset: Offset(0, 3),
+          //   ),
+          // ],
           ),
-        ],
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
