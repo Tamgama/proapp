@@ -1,5 +1,3 @@
-import 'package:animate_do/animate_do.dart';
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:proapp/widgets/card_list copy.dart';
 import 'package:provider/provider.dart';
