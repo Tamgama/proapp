@@ -25,12 +25,12 @@ class MyApp extends StatelessWidget {
 // modificaciones de una u otra página que alteran las demás u otras funcionalidades
 class MyAppState extends ChangeNotifier {
   final List<String> images = [
-    "proapp/assets/casa1.png",
-    "proapp/assets/casa2.png",
-    "proapp/assets/casa3.png",
-    "proapp/assets/casa4.png",
-    "proapp/assets/casa5.png",
-    "proapp/assets/casa6.png",
+    "assets/casa1.png",
+    "assets/casa2.png",
+    "assets/casa3.png",
+    "assets/casa4.png",
+    "assets/casa5.png",
+    "assets/casa6.png",
     // añade más URLs de imágenes aquí
   ];
 
