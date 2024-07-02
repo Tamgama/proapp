@@ -31,10 +31,4 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/casa1.png
-    - assets/casa2.png
-    - assets/casa3.png
-    - assets/casa4.png
-    - assets/casa5.png
-    - assets/casa6.png
-
+      - assets/

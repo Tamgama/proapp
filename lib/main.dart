@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:proapp/widgets/card_list.dart';
+import 'package:proapp/widgets/card_list copy.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -18,11 +18,6 @@ class MyApp extends StatelessWidget {
       create: (context) => MyAppState(),
       child: MaterialApp(
         title: 'proApp',
-        // theme: ThemeData(
-        //   useMaterial3: true,
-        //   colorScheme: ColorScheme.fromSeed(
-        //       seedColor: Color.fromARGB(255, 34, 255, 181)), // color general
-        // ),
         home: MyHomePage(),
       ),
     );
