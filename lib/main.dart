@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/widgets/card_list copy.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   runApp(MyApp());

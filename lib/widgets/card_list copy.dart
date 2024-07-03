@@ -7,7 +7,7 @@ class CardList extends StatelessWidget {
   final List<Map<String, String>> posts = [
     {
       "imagePath": "assets/casa1.png",
-      "title": "Casa con piscina",
+      "title": "Casa 1",
       "description":
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas luctus sit amet lectus vitae mollis. Sed venenatis quam ut est elementum, ut condimentum leo aliquam. ",
       "price": "250.000 €",
@@ -15,7 +15,7 @@ class CardList extends StatelessWidget {
     },
     {
       "imagePath": "assets/casa2.png",
-      "title": "Casa con jardin",
+      "title": "Casa 2",
       "description":
           "Pellentesque at laoreet massa. Duis vel mauris ut purus aliquet semper at eu arcu. Aliquam euismod facilisis nunc et tristique. ",
       "price": "200.000 €",
