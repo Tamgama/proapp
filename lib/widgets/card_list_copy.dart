@@ -112,12 +112,18 @@ class CardItem extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Padding(
+                    // precio
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(price),
+                    child: Text(price,
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold)),
                   ),
                   Padding(
+                    // ubicación
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(location),
+                    child: Text(location,
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -127,7 +133,6 @@ class CardItem extends StatelessWidget {
                   IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.calendar_month),
-                    tooltip: "Cita",
                   ),
                   SizedBox(width: 8),
                   IconButton(
@@ -135,7 +140,6 @@ class CardItem extends StatelessWidget {
                       appState.toggleFavorite(imagePath);
                     },
                     icon: Icon(isFav ? Icons.favorite : Icons.favorite_border),
-                    tooltip: "Like",
                   )
                 ],
               )

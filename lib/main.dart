@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:proapp/widgets/card_list copy.dart';
+import 'package:proapp/widgets/card_list_copy.dart';
 import 'package:provider/provider.dart';
+import 'responsive/layout.dart';
+import 'responsive/desktop_body.dart';
+import 'responsive/mobile_body.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,6 +18,12 @@ class MyApp extends StatelessWidget {
       create: (context) => MyAppState(),
       child: MaterialApp(
         title: 'proApp',
+        theme: ThemeData(
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            selectedItemColor: Color.fromARGB(255, 0, 0, 0),
+            unselectedItemColor: Color.fromARGB(255, 52, 94, 27),
+          ),
+        ),
         home: MyHomePage(),
       ),
     );
@@ -79,58 +88,46 @@ class _MyHomePageState extends State<MyHomePage> {
     Color.fromARGB(255, 190, 130, 224),
   ];
 
-  var _color = 0;
+  // var _color = 0;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          selectedItemColor: Color.fromARGB(255, 0, 0, 0),
-          // el botón seleccionado
-          unselectedItemColor: Color.fromARGB(255, 52, 94, 27),
-        ),
+    return Scaffold(
+      backgroundColor: _colores[_currentPage],
+      body: ResponsiveLayout(
+        mobileBody: MyMobileBody(pages: _pages, currentPage: _currentPage),
+        desktopBody: MyDesktopBody(pages: _pages, currentPage: _currentPage),
       ),
-      home: Scaffold(
-        backgroundColor: _colores[_color],
-        body: Center(
-          child: _pages.elementAt(_currentPage),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Casas',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.play_arrow),
-              label: 'Vídeos',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.lens),
-              label: 'Buscar',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: "Favs",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: "Perfil",
-            )
-          ],
-          currentIndex: _currentPage,
-//          fixedColor: Colors.black,
-          onTap: (int inIndex) {
-            setState(() {
-              // las páginas y los colores se unen y muestran por indices
-              _currentPage = inIndex;
-              _color = inIndex;
-            });
-          },
-          type: BottomNavigationBarType.shifting,
-          // animación
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Casas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.play_arrow),
+            label: 'Vídeos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.lens),
+            label: 'Buscar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: "Favs",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Perfil",
+          ),
+        ],
+        currentIndex: _currentPage,
+        onTap: (int inIndex) {
+          setState(() {
+            _currentPage = inIndex;
+          });
+        },
+        type: BottomNavigationBarType.shifting,
       ),
     );
   }
