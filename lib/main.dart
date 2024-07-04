@@ -4,11 +4,11 @@ import 'package:provider/provider.dart';
 import 'responsive/layout.dart';
 import 'responsive/desktop_body.dart';
 import 'responsive/mobile_body.dart';
-import 'package:proapp/homepage/HomePage.dart';
-import 'package:proapp/videopage/VideoPage.dart';
-import 'package:proapp/searchspage/SearchsPage.dart';
-import 'package:proapp/savedpage/SavedPage.dart';
-import 'package:proapp/profiles/ProfilePage.dart';
+import 'package:proapp/pages/homepage/HomePage.dart';
+import 'package:proapp/pages/videopage/VideoPage.dart';
+import 'package:proapp/pages/searchspage/SearchsPage.dart';
+import 'package:proapp/pages/savedpage/SavedPage.dart';
+import 'package:proapp/pages/profiles/ProfilePage.dart';
 
 void main() {
   runApp(MyApp());
