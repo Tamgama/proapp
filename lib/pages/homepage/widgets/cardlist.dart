@@ -13,14 +13,6 @@ class CardList extends StatelessWidget {
       "price": "250.000 €",
       "location": "Espinardo"
     },
-    {
-      "imagePath": "assets/casa2.png",
-      "title": "Casa 2",
-      "description":
-          "Pellentesque at laoreet massa. Duis vel mauris ut purus aliquet semper at eu arcu. Aliquam euismod facilisis nunc et tristique. ",
-      "price": "200.000 €",
-      "location": "Santomera"
-    },
   ];
 
   @override

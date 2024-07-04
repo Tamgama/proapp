@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:proapp/widgets/cardlist.dart';
+import 'package:proapp/pages/homepage/widgets/cardlist.dart';
 import 'package:provider/provider.dart';
 import 'responsive/layout.dart';
 import 'responsive/desktop_body.dart';
 import 'responsive/mobile_body.dart';
-import 'package:proapp/pages/homepage/HomePage.dart';
-import 'package:proapp/pages/videopage/VideoPage.dart';
-import 'package:proapp/pages/searchspage/SearchsPage.dart';
-import 'package:proapp/pages/savedpage/SavedPage.dart';
-import 'package:proapp/pages/profiles/ProfilePage.dart';
+import 'package:proapp/widgets/bottomnavbar.dart';
 
 void main() {
   runApp(MyApp());
@@ -73,63 +69,5 @@ class MyAppState extends ChangeNotifier {
 
 class MyHomePage extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  var _currentPage = 0;
-  var pages = [
-    HomePage(),
-    VideoPage(),
-    SearchsPage(),
-    SavedPage(),
-    UserProfile(),
-  ];
-  var _colores = [
-    Color.fromARGB(255, 206, 149, 149),
-    const Color.fromARGB(255, 231, 221, 133),
-    const Color.fromARGB(255, 144, 249, 158),
-    Color.fromARGB(255, 123, 200, 219),
-    Color.fromARGB(255, 190, 130, 224),
-  ];
-
-  // var _color = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _colores[_currentPage],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Casas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.play_arrow),
-            label: 'Vídeos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.lens),
-            label: 'Buscar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: "Favs",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Perfil",
-          ),
-        ],
-        currentIndex: _currentPage,
-        onTap: (int inIndex) {
-          setState(() {
-            _currentPage = inIndex;
-          });
-        },
-        type: BottomNavigationBarType.shifting,
-      ),
-    );
-  }
+  State<MyHomePage> createState() => Bottomnavbar();
 }

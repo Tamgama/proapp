@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proapp/widgets/cardlist.dart';
+import 'package:proapp/pages/homepage/widgets/cardlist.dart';
 
 const mobileWidth = 600;
 
