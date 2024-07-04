@@ -15,23 +15,23 @@ class Bottomnavbar extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: IconButton(onPressed: HomePage(), icon: Icons(Icons.home)),
             label: 'Casas',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.play_arrow),
+            icon: IconButton(onPressed: VideoPage.new(), icon: Icon(Icons.play_arrow)),
             label: 'Vídeos',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.lens),
+            icon: IconButton(onPressed: SearchsPage.new(), icon: Icon(Icons.lens)),
             label: 'Buscar',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+            icon: IconButton(onPressed: SavedPage.new(), icon: Icon(Icons.favorite)),
             label: "Favs",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: IconButton(onPressed: UserProfile.new.(), icon: Icon(Icons.person)),
             label: "Perfil",
           ),
         ],
