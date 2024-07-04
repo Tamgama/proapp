@@ -5,10 +5,10 @@ import 'responsive/layout.dart';
 import 'responsive/desktop_body.dart';
 import 'responsive/mobile_body.dart';
 import 'package:proapp/homepage/HomePage.dart';
-import 'package:proapp/homepage/VideoPage.dart';
-import 'package:proapp/homepage/SearchsPage.dart';
-import 'package:proapp/homepage/SavedPage.dart';
-import 'package:proapp/homepage/ProfilePage.dart';
+import 'package:proapp/videopage/VideoPage.dart';
+import 'package:proapp/searchspage/SearchsPage.dart';
+import 'package:proapp/savedpage/SavedPage.dart';
+import 'package:proapp/profiles/ProfilePage.dart';
 
 void main() {
   runApp(MyApp());
