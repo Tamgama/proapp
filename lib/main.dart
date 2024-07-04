@@ -4,6 +4,11 @@ import 'package:provider/provider.dart';
 import 'responsive/layout.dart';
 import 'responsive/desktop_body.dart';
 import 'responsive/mobile_body.dart';
+import 'package:proapp/pages/HomePage.dart';
+import 'package:proapp/pages/VideoPage.dart';
+import 'package:proapp/pages/SearchsPage.dart';
+import 'package:proapp/pages/SavedPage.dart';
+import 'package:proapp/pages/ProfilePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -73,7 +78,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var _currentPage = 0;
-  var _pages = [
+  var pages = [
     HomePage(),
     VideoPage(),
     SearchsPage(),
@@ -94,10 +99,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _colores[_currentPage],
-      // body: ResponsiveLayout(
-      //     mobileBody: MyMobileBody(pages: _pages, currentPage: _currentPage),
-      //     desktopBody: MyDesktopBody(pages: _pages, currentPage: _currentPage),
-      //     ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
@@ -128,78 +129,6 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
         type: BottomNavigationBarType.shifting,
-      ),
-    );
-  }
-}
-
-class VideoPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _colores[_currentPage],
-      body: ResponsiveLayout(
-        mobileBody: MobileVideo(pages: _pages, currentPage: _currentPage),
-        desktopBody: DesktopVideo(pages: _pages, currentPage: _currentPage),
-      ),
-    );
-  }
-}
-
-class SearchsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _colores[_currentPage],
-      body: ResponsiveLayout(
-        mobileBody: MobileSearchs(pages: _pages, currentPage: _currentPage),
-        desktopBody: DesktopSearchs(pages: _pages, currentPage: _currentPage),
-      ),
-    );
-  }
-}
-
-class SavedPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    if (appState.favorites.isEmpty) {
-      return Center(
-        child: Text("No hay favoritos"),
-      );
-    }
-    return Center(
-      child: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Text('You have '
-                '${appState.favorites.length} favorites:'),
-          ),
-          for (var imageUrl in appState.favorites)
-            ListTile(
-              leading: Icon(Icons.favorite),
-              title: Image.network(
-                imageUrl,
-                width: 50,
-                height: 50,
-                fit: BoxFit.cover,
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class UserProfile extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _colores[_currentPage],
-      body: ResponsiveLayout(
-        mobileBody: MobileProfile(pages: _pages, currentPage: _currentPage),
-        desktopBody: DesktopProfile(pages: _pages, currentPage: _currentPage),
       ),
     );
   }
