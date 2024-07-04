@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proapp/widgets/card_list_copy.dart';
+import 'package:proapp/widgets/cardlist.dart';
 import 'package:provider/provider.dart';
 import 'responsive/layout.dart';
 import 'responsive/desktop_body.dart';
@@ -94,10 +94,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _colores[_currentPage],
-      body: ResponsiveLayout(
-        mobileBody: MyMobileBody(pages: _pages, currentPage: _currentPage),
-        desktopBody: MyDesktopBody(pages: _pages, currentPage: _currentPage),
-      ),
+      // body: ResponsiveLayout(
+      //     mobileBody: MyMobileBody(pages: _pages, currentPage: _currentPage),
+      //     desktopBody: MyDesktopBody(pages: _pages, currentPage: _currentPage),
+      //     ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
@@ -133,26 +133,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: CardList(),
-    );
-  }
-}
-
 class VideoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ListView.builder(
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('Ítem $index'),
-          );
-        },
+    return Scaffold(
+      backgroundColor: _colores[_currentPage],
+      body: ResponsiveLayout(
+        mobileBody: MobileVideo(pages: _pages, currentPage: _currentPage),
+        desktopBody: DesktopVideo(pages: _pages, currentPage: _currentPage),
       ),
     );
   }
@@ -161,14 +149,11 @@ class VideoPage extends StatelessWidget {
 class SearchsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ListView.builder(
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('Ítem $index'),
-          );
-        },
+    return Scaffold(
+      backgroundColor: _colores[_currentPage],
+      body: ResponsiveLayout(
+        mobileBody: MobileSearchs(pages: _pages, currentPage: _currentPage),
+        desktopBody: DesktopSearchs(pages: _pages, currentPage: _currentPage),
       ),
     );
   }
@@ -210,14 +195,11 @@ class SavedPage extends StatelessWidget {
 class UserProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ListView.builder(
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('Ítem $index'),
-          );
-        },
+    return Scaffold(
+      backgroundColor: _colores[_currentPage],
+      body: ResponsiveLayout(
+        mobileBody: MobileProfile(pages: _pages, currentPage: _currentPage),
+        desktopBody: DesktopProfile(pages: _pages, currentPage: _currentPage),
       ),
     );
   }
