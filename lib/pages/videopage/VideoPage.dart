@@ -10,11 +10,11 @@ class VideoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _colores[_currentPage],
-      body: ResponsiveLayout(
-        mobileBody: MobileVideo(pages: _pages, currentPage: _currentPage),
-        desktopBody: DesktopVideo(pages: _pages, currentPage: _currentPage),
-      ),
-    );
+        // backgroundColor: _colores[_currentPage],
+        //   body: ResponsiveLayout(
+        //     mobileBody: MobileVideo(pages: _pages, currentPage: _currentPage),
+        //     desktopBody: DesktopVideo(pages: _pages, currentPage: _currentPage),
+        //   ),
+        );
   }
 }

@@ -8,27 +8,10 @@ import 'package:proapp/pages/profiles/ProfilePage.dart';
 
 class Bottomnavbar extends State<MyHomePage> {
   var _currentPage = 0;
-  var pages = [
-    HomePage(),
-    VideoPage(),
-    SearchsPage(),
-    SavedPage(),
-    UserProfile(),
-  ];
-  var _colores = [
-    Color.fromARGB(255, 206, 149, 149),
-    const Color.fromARGB(255, 231, 221, 133),
-    const Color.fromARGB(255, 144, 249, 158),
-    Color.fromARGB(255, 123, 200, 219),
-    Color.fromARGB(255, 190, 130, 224),
-  ];
-
-  // var _color = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _colores[_currentPage],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(

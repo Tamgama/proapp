@@ -10,11 +10,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _colores[_currentPage],
-      body: ResponsiveLayout(
-        mobileBody: MobileHome(pages: _pages, currentPage: _currentPage),
-        desktopBody: DesktopHome(pages: _pages, currentPage: _currentPage),
-      ),
-    );
+        // backgroundColor: _colores[_currentPage],
+        // body: ResponsiveLayout(
+        //   mobileBody: MobileHome(pages: _pages, currentPage: _currentPage),
+        //   desktopBody: DesktopHome(pages: _pages, currentPage: _currentPage),
+        // ),
+        );
   }
 }

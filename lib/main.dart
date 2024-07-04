@@ -1,17 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:proapp/pages/homepage/widgets/cardlist.dart';
 import 'package:provider/provider.dart';
-import 'responsive/layout.dart';
-import 'responsive/desktop_body.dart';
-import 'responsive/mobile_body.dart';
-import 'package:proapp/widgets/bottomnavbar.dart';
+import 'package:proapp/widgets/bottom_navbar.dart';
+import 'package:proapp/pages/homepage/HomePage.dart';
+import 'package:proapp/pages/videopage/VideoPage.dart';
+import 'package:proapp/pages/searchspage/SearchsPage.dart';
+import 'package:proapp/pages/savedpage/SavedPage.dart';
+import 'package:proapp/pages/profiles/ProfilePage.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  var currentpage = 0;
+
+  var pages = [
+    HomePage(),
+    VideoPage(),
+    SearchsPage(),
+    SavedPage(),
+    UserProfile(),
+  ];
+
+  var _colores = [
+    Color.fromARGB(255, 206, 149, 149),
+    const Color.fromARGB(255, 231, 221, 133),
+    const Color.fromARGB(255, 144, 249, 158),
+    Color.fromARGB(255, 123, 200, 219),
+    Color.fromARGB(255, 190, 130, 224),
+  ];
+
+  var color = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +41,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'proApp',
         theme: ThemeData(
+          scaffoldBackgroundColor: _colores[color],
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             selectedItemColor: Color.fromARGB(255, 0, 0, 0),
             unselectedItemColor: Color.fromARGB(255, 52, 94, 27),
