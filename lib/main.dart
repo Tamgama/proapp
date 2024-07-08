@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proapp/widgets/bottom_navbar.dart';
-import 'package:proapp/screens/feed_screen/feed.dart';
-import 'package:proapp/screens/reels_screen/videos.dart';
-import 'package:proapp/screens/search_screen/searchs.dart';
-import 'package:proapp/screens/saved_screen/favorites.dart';
-import 'package:proapp/screens/profile_screen/profile.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,17 +9,7 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  var currentpage = 0;
-
-  var pages = [
-    HomePage(),
-    VideoPage(),
-    SearchsPage(),
-    SavedPage(),
-    UserProfile(),
-  ];
-
-  var _colores = [
+  final List<Color> _colores = [
     Color.fromARGB(255, 206, 149, 149),
     const Color.fromARGB(255, 231, 221, 133),
     const Color.fromARGB(255, 144, 249, 158),
@@ -32,28 +17,29 @@ class MyApp extends StatelessWidget {
     Color.fromARGB(255, 190, 130, 224),
   ];
 
-  var color = 0;
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
-      child: MaterialApp(
-        title: 'proApp',
-        theme: ThemeData(
-          scaffoldBackgroundColor: _colores[color],
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            selectedItemColor: Color.fromARGB(255, 0, 0, 0),
-            unselectedItemColor: Color.fromARGB(255, 52, 94, 27),
-          ),
-        ),
-        home: MyHomePage(),
+      child: Consumer<MyAppState>(
+        builder: (context, appState, _) {
+          return MaterialApp(
+            title: 'proApp',
+            theme: ThemeData(
+              scaffoldBackgroundColor: _colores[appState.currentPage],
+              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                selectedItemColor: Color.fromARGB(255, 0, 0, 0),
+                unselectedItemColor: Color.fromARGB(255, 52, 94, 27),
+              ),
+            ),
+            home: BottomNavbar(),
+          );
+        },
       ),
     );
   }
 }
 
-// modificaciones de una u otra página que alteran las demás u otras funcionalidades
 class MyAppState extends ChangeNotifier {
   final List<String> images = [
     "assets/casa1.png",
@@ -62,12 +48,12 @@ class MyAppState extends ChangeNotifier {
     "assets/casa4.png",
     "assets/casa5.png",
     "assets/casa6.png",
-    // añade más URLs de imágenes aquí
   ];
 
-  late String currentImage;
+  String currentImage;
+  int currentPage = 0;
 
-  MyAppState() {
+  MyAppState() : currentImage = "assets/casa1.png" {
     getNext();
   }
 
@@ -79,17 +65,16 @@ class MyAppState extends ChangeNotifier {
   var favorites = <String>[];
 
   void toggleFavorite(String imageUrl) {
-    //si está ya en favs, lo quita, y si no, lo añade
     if (favorites.contains(imageUrl)) {
       favorites.remove(imageUrl);
     } else {
       favorites.add(imageUrl);
     }
-    notifyListeners(); //pa q se actualice la interfaz donde se utiliza esta clase
+    notifyListeners();
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  @override
-  State<MyHomePage> createState() => Bottomnavbar();
+  void setPage(int index) {
+    currentPage = index;
+    notifyListeners();
+  }
 }

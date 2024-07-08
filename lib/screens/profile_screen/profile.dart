@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:proapp/responsive/layout.dart';
-import 'package:proapp/responsive/mobile_body.dart';
-import 'package:proapp/responsive/desktop_body.dart';
 
-class UserProfile extends StatelessWidget {
+class profileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

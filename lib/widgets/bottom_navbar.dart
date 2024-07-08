@@ -1,46 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:proapp/main.dart';
+import 'package:provider/provider.dart';
 import 'package:proapp/screens/feed_screen/feed.dart';
 import 'package:proapp/screens/reels_screen/videos.dart';
 import 'package:proapp/screens/search_screen/searchs.dart';
 import 'package:proapp/screens/saved_screen/favorites.dart';
 import 'package:proapp/screens/profile_screen/profile.dart';
+import 'package:proapp/main.dart';
 
-class Bottomnavbar extends State<MyHomePage> {
-  var _currentPage = 0;
+class BottomNavbar extends StatefulWidget {
+  @override
+  _BottomNavbarState createState() => _BottomNavbarState();
+}
 
+class _BottomNavbarState extends State<BottomNavbar> {
   @override
   Widget build(BuildContext context) {
+    final appState = Provider.of<MyAppState>(context);
+
+    final List<Widget> pages = [
+      HomePage(),
+      reelsScreen(),
+      searchsScreen(),
+      favScreen(),
+      profileScreen(),
+    ];
+
     return Scaffold(
+      body: pages[appState.currentPage],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.shifting,
+        currentIndex: appState.currentPage,
+        onTap: (int newIndex) {
+          appState.setPage(newIndex);
+        },
+        items: const [
           BottomNavigationBarItem(
-            icon: IconButton(onPressed: HomePage(), icon: Icons(Icons.home)),
+            icon: Icon(Icons.home),
             label: 'Casas',
           ),
           BottomNavigationBarItem(
-            icon: IconButton(onPressed: VideoPage.new(), icon: Icon(Icons.play_arrow)),
+            icon: Icon(Icons.play_arrow),
             label: 'Vídeos',
           ),
           BottomNavigationBarItem(
-            icon: IconButton(onPressed: SearchsPage.new(), icon: Icon(Icons.lens)),
+            icon: Icon(Icons.search),
             label: 'Buscar',
           ),
           BottomNavigationBarItem(
-            icon: IconButton(onPressed: SavedPage.new(), icon: Icon(Icons.favorite)),
+            icon: Icon(Icons.favorite),
             label: "Favs",
           ),
           BottomNavigationBarItem(
-            icon: IconButton(onPressed: UserProfile.new.(), icon: Icon(Icons.person)),
+            icon: Icon(Icons.person),
             label: "Perfil",
           ),
-      ),
-        currentIndex: _currentPage,
-        onTap: (int inIndex) {
-          setState(() {
-            _currentPage = inIndex;
-          });
-        },
-        type: BottomNavigationBarType.shifting,
+        ],
       ),
     );
   }

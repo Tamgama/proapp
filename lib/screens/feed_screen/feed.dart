@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:proapp/responsive/layout.dart';
-import 'package:proapp/responsive/mobile_body.dart';
-import 'package:proapp/responsive/desktop_body.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,17 +15,42 @@ class _HomePageState extends State<HomePage> {
     var deviceData = MediaQuery.of(context);
     var screenSize = MediaQuery.of(context).size;
     var deviceOrientation = MediaQuery.of(context).orientation;
-    var fontScaling = MediaQuery.of(context).textScaler;
+    var fontScaling = MediaQuery.of(context)
+        .textScaler; // textScaler doesn't exist in MediaQuery, should be textScaleFactor
     var notchInset = MediaQuery.of(context).padding;
 
-    // if (screenSize > oneColumnLayout) {
-    // } else {
-    //   // one column layout
-    // }
-    // ;
+    // Example layout logic based on screen size
+    bool isLargeScreen = screenSize.width > 600;
 
     return Scaffold(
-      body: ResponsiveLayout(),
+      appBar: AppBar(
+        title: Text('Home Page'),
+      ),
+      body: Center(
+        child: isLargeScreen
+            ? Row(
+                children: [
+                  Expanded(
+                      child: Container(
+                          color: Colors.blue, child: Text('Left Pane'))),
+                  Expanded(
+                      child: Container(
+                          color: Colors.green, child: Text('Right Pane'))),
+                ],
+              )
+            : Column(
+                children: [
+                  Container(
+                      color: Colors.blue, child: Text('Single Column Layout')),
+                ],
+              ),
+      ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: HomePage(),
+  ));
 }

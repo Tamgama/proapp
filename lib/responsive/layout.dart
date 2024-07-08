@@ -1,22 +1,22 @@
-import 'package:flutter/material.dart';
-import 'mobile_body.dart';
+// import 'package:flutter/material.dart';
+// import 'mobile_body.dart';
 
-class ResponsiveLayout extends StatelessWidget {
-  final Widget mobileBody;
-  final Widget desktopBody;
+// class ResponsiveLayout extends StatelessWidget {
+//   final Widget mobileBody;
+//   final Widget desktopBody;
 
-  ResponsiveLayout({required this.mobileBody, required this.desktopBody});
+//   ResponsiveLayout({required this.mobileBody, required this.desktopBody});
 
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        if (constraints.maxWidth < mobileWidth) {
-          return mobileBody;
-        } else {
-          return desktopBody;
-        }
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return LayoutBuilder(
+//       builder: (context, constraints) {
+//         if (constraints.maxWidth < mobileWidth) {
+//           return mobileBody;
+//         } else {
+//           return desktopBody;
+//         }
+//       },
+//     );
+//   }
+// }
