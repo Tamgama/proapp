@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/screens/feed_screen/widgets/posts.dart';
-import 'package:proapp/widgets/bottom_navbar.dart';
 
 const mobileWidth = 600;
 
@@ -8,7 +7,7 @@ class MobileHome extends StatelessWidget {
   final List<Widget> pages;
   final int currentPage;
 
-  const MobileHome({required this.pages, required this.currentPage, Key? key});
+  MobileHome({required this.pages, required this.currentPage, Key? key});
 
   @override
   Widget build(BuildContext context) {

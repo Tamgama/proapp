@@ -29,10 +29,7 @@ class _HomePageState extends State<HomePage> {
     // ;
 
     return Scaffold(
-      body: ResponsiveLayout(
-        mobileBody: MobileHome(),
-        desktopBody: DesktopHome(),
-      ),
+      body: ResponsiveLayout(),
     );
   }
 }

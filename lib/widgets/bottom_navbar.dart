@@ -13,7 +13,6 @@ class Bottomnavbar extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
           BottomNavigationBarItem(
             icon: IconButton(onPressed: HomePage(), icon: Icons(Icons.home)),
             label: 'Casas',
@@ -34,7 +33,7 @@ class Bottomnavbar extends State<MyHomePage> {
             icon: IconButton(onPressed: UserProfile.new.(), icon: Icon(Icons.person)),
             label: "Perfil",
           ),
-        ],
+      ),
         currentIndex: _currentPage,
         onTap: (int inIndex) {
           setState(() {
