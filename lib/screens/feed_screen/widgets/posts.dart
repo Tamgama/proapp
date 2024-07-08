@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class CardList extends StatelessWidget {
   final List<Map<String, String>> posts = [

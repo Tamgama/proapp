@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proapp/pages/homepage/widgets/cardlist.dart';
+import 'package:proapp/screens/feed_screen/widgets/posts.dart';
+import 'package:proapp/widgets/bottom_navbar.dart';
 
 class DesktopHome extends StatelessWidget {
   final List<Widget> pages;
@@ -58,6 +59,7 @@ class DesktopHome extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: Bottomnavbar(),
     );
   }
 }

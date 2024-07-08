@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proapp/pages/homepage/widgets/cardlist.dart';
+import 'package:proapp/screens/feed_screen/widgets/posts.dart';
+import 'package:proapp/widgets/bottom_navbar.dart';
 
 const mobileWidth = 600;
 
@@ -25,7 +26,10 @@ class MobileHome extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: AspectRatio(
                 aspectRatio: 16 / 9,
-                child: CardList(),
+                child: Container(
+                  color: const Color.fromARGB(255, 192, 205, 117),
+                  height: 120,
+                ),
               ),
             ),
 

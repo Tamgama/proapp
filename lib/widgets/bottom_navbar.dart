@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/main.dart';
-import 'package:proapp/pages/homepage/HomePage.dart';
-import 'package:proapp/pages/videopage/VideoPage.dart';
-import 'package:proapp/pages/searchspage/SearchsPage.dart';
-import 'package:proapp/pages/savedpage/SavedPage.dart';
-import 'package:proapp/pages/profiles/ProfilePage.dart';
+import 'package:proapp/screens/feed_screen/feed.dart';
+import 'package:proapp/screens/reels_screen/videos.dart';
+import 'package:proapp/screens/search_screen/searchs.dart';
+import 'package:proapp/screens/saved_screen/favorites.dart';
+import 'package:proapp/screens/profile_screen/profile.dart';
 
 class Bottomnavbar extends State<MyHomePage> {
   var _currentPage = 0;
