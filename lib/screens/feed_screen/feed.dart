@@ -1,6 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
+import 'package:proapp/screens/feed_screen/widgets/posts.dart';
+import 'package:proapp/main.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => MyAppState(),
+      child: MaterialApp(
+        home: HomePage(),
+      ),
+    );
+  }
+}
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,14 +29,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    var deviceData = MediaQuery.of(context);
     var screenSize = MediaQuery.of(context).size;
-    var deviceOrientation = MediaQuery.of(context).orientation;
-    var fontScaling = MediaQuery.of(context)
-        .textScaler; // textScaler doesn't exist in MediaQuery, should be textScaleFactor
-    var notchInset = MediaQuery.of(context).padding;
 
-    // Example layout logic based on screen size
     bool isLargeScreen = screenSize.width > 600;
 
     return Scaffold(
@@ -34,23 +45,12 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                           color: Colors.blue, child: Text('Left Pane'))),
                   Expanded(
-                      child: Container(
-                          color: Colors.green, child: Text('Right Pane'))),
+                    child: CardList(),
+                  ),
                 ],
               )
-            : Column(
-                children: [
-                  Container(
-                      color: Colors.blue, child: Text('Single Column Layout')),
-                ],
-              ),
+            : CardList(),
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: HomePage(),
-  ));
 }
