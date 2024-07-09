@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:proapp/main.dart';
-import 'package:provider/provider.dart';
 
 class profileScreen extends StatelessWidget {
   @override

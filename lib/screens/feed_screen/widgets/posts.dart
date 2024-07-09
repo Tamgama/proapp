@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
-import 'package:proapp/screens/feed_screen/feed.dart';
 
 class BigCard extends StatelessWidget {
   const BigCard({
