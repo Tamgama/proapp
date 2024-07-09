@@ -27,13 +27,17 @@ class BigCard extends StatelessWidget {
       //contenedor de los posts
       margin: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        color: Colors.grey[200], // el fondo
-        borderRadius: BorderRadius.circular(5),
+        color: Colors.grey[200], // color de fondo del container
+        borderRadius:
+            BorderRadius.circular(5), // redondea las esquinas del container
         boxShadow: [
+          // sombrita de detrás
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 10,
-            offset: Offset(0, 3),
+            color: Color.fromARGB(255, 0, 0, 0)
+                .withOpacity(0.2), // 20% de opacidad
+            blurRadius: 10, // radio de desenfoque de la sombra
+            offset: Offset(2,
+                2), // la sombra se desplaza 0 px horizontalmente y 3 verticalmente
           ),
         ],
       ),

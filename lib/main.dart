@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proapp/widgets/bottom_navbar.dart';
-import 'package:proapp/screens/feed_screen/widgets/posts.dart';
 
 void main() {
   runApp(MyApp());
