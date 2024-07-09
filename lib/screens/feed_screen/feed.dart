@@ -29,27 +29,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-
-    bool isLargeScreen = screenSize.width > 600;
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Home Page'),
       ),
       body: Center(
-        child: isLargeScreen
-            ? Row(
-                children: [
-                  Expanded(
-                      child: Container(
-                          color: Colors.blue, child: Text('Left Pane'))),
-                  Expanded(
-                    child: CardList(),
-                  ),
-                ],
-              )
-            : CardList(),
+        child: CardList(),
       ),
     );
   }

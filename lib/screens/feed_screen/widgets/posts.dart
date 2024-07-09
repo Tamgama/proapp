@@ -20,101 +20,119 @@ class BigCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+    bool isFav = appState.favorites.contains(imagePath);
+
     return Container(
-      height: 200,
-      width: double.infinity,
+      //contenedor de los posts
+      margin: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10),
+        color: Colors.grey[200], // el fondo
+        borderRadius: BorderRadius.circular(5),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
-            blurRadius: 6,
+            blurRadius: 10,
             offset: Offset(0, 3),
           ),
         ],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Stack(
-          children: [
-            Image.asset(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(5),
+              topRight: Radius.circular(100),
+            ),
+            child: Image.asset(
               imagePath,
               fit: BoxFit.cover,
               width: double.infinity,
+              height: 150,
               errorBuilder: (context, error, stackTrace) {
                 return Center(
                   child: Text(
                     'Error al cargar la imagen',
                     style: TextStyle(
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
                 );
               },
             ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      Colors.black.withOpacity(0.8),
-                      Colors.transparent,
-                    ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                SizedBox(height: 4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      description,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(height: 4),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Precio: $price',
+                          price,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        SizedBox(width: 10), // separación entre widgets
                         Text(
-                          'Ubicación: $location',
+                          location,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
                     ),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.calendar_month),
+                          onPressed: () {
+                            // Acción para el botón de calendario
+                          },
+                        ),
+                        SizedBox(width: 8),
+                        IconButton(
+                          icon: Icon(
+                              isFav ? Icons.favorite : Icons.favorite_border),
+                          onPressed: () {
+                            appState.toggleFavorite(imagePath);
+                          },
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-              ),
+                SizedBox(height: 4),
+                Text(
+                  description,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -131,18 +149,22 @@ class CardList extends StatelessWidget {
     return ListView.builder(
       itemCount: imagePaths.length,
       itemBuilder: (context, index) {
-        return BigCard(
-          imagePath: imagePaths[index],
-          title: 'Casa en el Campo',
-          description:
-              'Casa de estilo rústico con amplio jardín y vistas espectaculares.',
-          price: '\$250,000',
-          location: 'Ciudad Ejemplo, País',
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: BigCard(
+            imagePath: imagePaths[index],
+            title: 'Casa en el Campo',
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas luctus sit amet lectus vitae mollis. Sed venenatis quam ut est elementum, ut condimentum leo aliquam.',
+            price: '\$250,000',
+            location: 'Ciudad Ejemplo, País',
+          ),
         );
       },
     );
   }
 }
+
 
 
 // class CardList extends StatelessWidget {
@@ -286,6 +308,9 @@ class CardList extends StatelessWidget {
 // }
 
 
+
+
+
 // class CardList extends StatelessWidget {
 //   const CardList({super.key});
 
@@ -390,18 +415,6 @@ class CardList extends StatelessWidget {
 //               ],
 //             ),
 //           ),
-//           RichText(
-//             text: TextSpan(
-//               text: 'Hello ',
-//               style: DefaultTextStyle.of(context).style,
-//               children: const <TextSpan>[
-//                 TextSpan(
-//                     text: 'bold',
-//                     style: TextStyle(fontWeight: FontWeight.bold)),
-//                 TextSpan(text: ' world!'),
-//               ],
-//             ),
-//           )
 //         ],
 //       ),
 //     );
