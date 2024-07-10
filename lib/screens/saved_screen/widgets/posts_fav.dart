@@ -2,26 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
 
-class BigCard extends StatelessWidget {
-  const BigCard({
+class savedCard extends StatelessWidget {
+  const savedCard({
     Key? key,
     required this.imagePath,
     required this.title,
-    required this.description,
     required this.price,
     required this.location,
+    required this.isFav,
   }) : super(key: key);
 
   final String imagePath;
   final String title;
-  final String description;
   final String price;
   final String location;
+  final bool isFav;
 
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-    bool isFav = appState.favorites.contains(imagePath);
 
     return Container(
       //contenedor de los posts
@@ -33,28 +32,29 @@ class BigCard extends StatelessWidget {
         boxShadow: [
           // sombrita de detrás
           BoxShadow(
-            color: Color.fromARGB(255, 0, 0, 0)
-                .withOpacity(0.2), // 20% de opacidad
-            blurRadius: 10, // radio de desenfoque de la sombra
-            offset: Offset(2,
-                2), // la sombra se desplaza 0 px horizontalmente y 3 verticalmente
+            color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
+            // 20% de opacidad
+            blurRadius: 10,
+            // radio de desenfoque de la sombra
+            offset: Offset(2, 2),
+            // la sombra se desplaza 0 px horizontalmente y 3 verticalmente
           ),
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment
-            .center, // alineación en e eje horizontal, en el centro
+        crossAxisAlignment: CrossAxisAlignment.center,
+        // alineación en e eje horizontal, en el centro
         children: [
           ClipRRect(
             borderRadius: BorderRadius.only(
               // aplica un radio de borde a esquinas específicas
               topLeft: Radius.circular(5),
-              topRight: Radius.circular(100),
+              topRight: Radius.circular(5),
             ),
             child: Image.asset(
               imagePath,
-              fit: BoxFit
-                  .cover, // cómo se ajusta la imagen al contenedor, con cover, a todo el área del container
+              fit: BoxFit.cover,
+              // cómo se ajusta la imagen al contenedor, con cover, a todo el área del container
               width: double.infinity, // así ocupa todo el ancho disponible
               height: 200,
               errorBuilder: (context, error, stackTrace) {
@@ -72,8 +72,8 @@ class BigCard extends StatelessWidget {
           ),
           Padding(
             //contenedor de caracteristicas
-            padding: const EdgeInsets.all(
-                8.0), // añade el pad de 8px a la caja de características
+            padding: const EdgeInsets.all(8.0),
+            // añade el pad de 8px a la caja de características
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -91,8 +91,8 @@ class BigCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment
-                          .start, // alinea al inicio, parte superior
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // alinea al inicio, parte superior
                       children: [
                         Text(
                           price,
@@ -101,8 +101,8 @@ class BigCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(
-                            width: 10), // separación entre precio y ubicación
+                        SizedBox(width: 10),
+                        // separación entre precio y ubicación
                         Text(
                           location,
                           style: TextStyle(
@@ -115,21 +115,13 @@ class BigCard extends StatelessWidget {
                     Row(
                       // container de los botones
                       children: [
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 160, 160, 160),
-                          ),
-                          onPressed: () {},
-                          child: Text(
-                            "Pide cita",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
+                        IconButton(
+                          icon: Icon(Icons.calendar_month),
+                          onPressed: () {
+                            // Acción para el botón de calendario
+                          },
                         ),
-
-                        SizedBox(width: 10), // separación enter los botones
+                        SizedBox(width: 10),
                         IconButton(
                           icon: Icon(
                               isFav ? Icons.favorite : Icons.favorite_border),
@@ -142,16 +134,6 @@ class BigCard extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 4),
-                Text(
-                  // descripción
-                  description,
-                  maxLines: 2,
-                  overflow: TextOverflow
-                      .ellipsis, // si el texto excede el maxLines, se comprime con ...
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
               ],
             ),
           ),
@@ -167,25 +149,29 @@ class CardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // construcción del widget
-    var appState = context
-        .watch<MyAppState>(); // obtención del estado de la app con provider
-    final imagePaths = appState.images.take(10).toList();
+    var appState = context.watch<MyAppState>();
+    // obtención del estado de la app con provider
+    final List<String> allImages = appState.images;
+    final List<String> favoriteImages = appState.favorites;
 
     return ListView.builder(
       // lista de bigcards
-      itemCount: imagePaths.length, // nº de elementos de la lista
+      itemCount: allImages.length, // nº de elementos de la lista
       itemBuilder: (context, index) {
+        String imagePath = allImages[index];
+        bool isFav = favoriteImages.contains(imagePath);
+        // Determinación dinámica de isFav
+
         return Padding(
           // estructura de tarjetas dentro de la lista
           padding: const EdgeInsets.fromLTRB(4.0, 2.0, 4.0, 2.0),
-          child: BigCard(
+          child: savedCard(
             // widget personalizado con la info de la tarjeta
-            imagePath: imagePaths[index],
+            imagePath: imagePath,
             title: 'Casa en el Campo',
-            description:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas luctus sit amet lectus vitae mollis. Sed venenatis quam ut est elementum, ut condimentum leo aliquam.',
             price: '250,000€',
             location: 'Ciudad Ejemplo, País',
+            isFav: true,
           ),
         );
       },

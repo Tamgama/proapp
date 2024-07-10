@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:proapp/screens/feed_screen/feed.dart';
 import 'package:provider/provider.dart';
-import 'package:proapp/widgets/bottom_navbar.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
                 unselectedItemColor: Color.fromARGB(255, 52, 94, 27),
               ),
             ),
-            home: BottomNavbar(),
+            home: HomePage(),
           );
         },
       ),
