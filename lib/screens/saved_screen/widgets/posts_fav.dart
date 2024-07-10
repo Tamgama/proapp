@@ -115,11 +115,18 @@ class savedCard extends StatelessWidget {
                     Row(
                       // container de los botones
                       children: [
-                        IconButton(
-                          icon: Icon(Icons.calendar_month),
-                          onPressed: () {
-                            // Acción para el botón de calendario
-                          },
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 160, 160, 160),
+                          ),
+                          onPressed: () {},
+                          child: Text(
+                            "Pide cita",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                         SizedBox(width: 10),
                         IconButton(

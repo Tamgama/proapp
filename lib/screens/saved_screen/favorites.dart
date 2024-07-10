@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
+import 'package:proapp/screens/saved_screen/widgets/posts_fav.dart';
 
 class favScreen extends StatelessWidget {
   const favScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    // contructor del widget
     var appState = context.watch<MyAppState>();
-    //actualización del widgets según Myappstate, esperando a que pase algo
 
     if (appState.favorites.isEmpty) {
-      // verificación de lista vacía
       return Center(
         child: Text("No hay favoritos"),
       );
@@ -20,21 +19,19 @@ class favScreen extends StatelessWidget {
     return ListView.builder(
       itemCount: appState.favorites.length,
       itemBuilder: (context, index) {
-        String imageUrl = appState.favorites[index];
+        String imagePath = appState.favorites[index];
 
-        return ListTile(
-          title: Image.asset(
-            imageUrl,
-            width: 50,
-            height: 50,
-            fit: BoxFit.cover,
-          ),
-          leading: IconButton(
-            icon: Icon(Icons.favorite),
-            color: Colors.black,
-            onPressed: () {
-              appState.toggleFavorite(imageUrl); // Elimina de favoritos
-            },
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(4.0, 2.0, 4.0, 2.0),
+          child: savedCard(
+            imagePath: imagePath,
+            title:
+                'Casa en el Campo', // Puedes ajustar estos valores según tu necesidad
+            price:
+                '250,000€', // Puedes ajustar estos valores según tu necesidad
+            location:
+                'Ciudad Ejemplo, País', // Puedes ajustar estos valores según tu necesidad
+            isFav: true,
           ),
         );
       },
