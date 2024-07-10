@@ -18,7 +18,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     final appState = Provider.of<MyAppState>(context);
 
     final List<Widget> pages = [
-      HomePage(),
+      feedScreen(),
       reelsScreen(),
       searchsScreen(),
       favScreen(),

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:proapp/screens/feed_screen/widgets/posts.dart';
-import 'package:proapp/main.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class feedScreen extends StatefulWidget {
+  const feedScreen({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _feedState createState() => _feedState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _feedState extends State<feedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

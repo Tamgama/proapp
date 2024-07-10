@@ -3,6 +3,7 @@ import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
 
 class favScreen extends StatelessWidget {
+  const favScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // contructor del widget

@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:proapp/screens/feed_screen/feed.dart';
 import 'package:provider/provider.dart';
+import 'package:proapp/widgets/appbar.dart';
+import 'package:proapp/screens/feed_screen/feed.dart';
+import 'package:proapp/screens/profile_screen/profile.dart';
+import 'package:proapp/screens/reels_screen/videos.dart';
+import 'package:proapp/screens/saved_screen/favorites.dart';
+import 'package:proapp/screens/search_screen/searchs.dart';
 
 void main() {
-  runApp(MyApp());
+  // ejecución pa iniciar la app
+  runApp(MyApp()); //punto de entrada
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  MyApp({super.key}); //constructor
 
+  // colores para diferenciar los fondos de las pantallas
+  // solo para localizar, a eliminar
   final List<Color> _colores = [
     Color.fromARGB(255, 206, 149, 149),
     const Color.fromARGB(255, 231, 221, 133),
@@ -19,9 +27,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // contructor
+    // devuelve un MaterialApp con tema y título definidos
+    // y HomePage como página inicial
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: Consumer<MyAppState>(
+        // escucha los cambios en Myappstate
         builder: (context, appState, _) {
           return MaterialApp(
             title: 'proApp',
@@ -41,6 +53,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
+  // subclase
   final List<String> images = [
     "assets/casa1.png",
     "assets/casa2.png",
@@ -58,6 +71,7 @@ class MyAppState extends ChangeNotifier {
   }
 
   void getNext() {
+    // selección aleatoria de imágenes
     currentImage = (images..shuffle()).first;
     notifyListeners();
   }
@@ -65,6 +79,7 @@ class MyAppState extends ChangeNotifier {
   var favorites = <String>[];
 
   void toggleFavorite(String imageUrl) {
+    // para agregar y quitar favs y notificar los cambios
     if (favorites.contains(imageUrl)) {
       favorites.remove(imageUrl);
     } else {
@@ -74,7 +89,53 @@ class MyAppState extends ChangeNotifier {
   }
 
   void setPage(int index) {
+    // cambia la página actual y notifica cambios
     currentPage = index;
     notifyListeners();
+  }
+}
+
+class HomePage extends StatelessWidget {
+  // subclase
+  static const List<Widget> _widgetOptions = <Widget>[
+    feedScreen(),
+    reelsScreen(),
+    searchsScreen(),
+    favScreen(),
+    profileScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MyAppState>(
+      // escucha los ambios de MyAppState
+      builder: (context, appState, _) {
+        // recibe contexto, estado e hijo _
+        return Scaffold(
+          appBar: CustomAppBar(
+            title: "Promurcia",
+          ),
+          body: _widgetOptions.elementAt(appState.currentPage),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: appState.currentPage, // página actual
+            onTap: (index) {
+              // actualiza página
+              appState.setPage(index);
+            },
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.play_arrow), label: 'Reels'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.search), label: 'Search'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite), label: 'Favorites'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person), label: 'Profile'),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
