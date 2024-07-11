@@ -10,10 +10,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      title: Text(title),
-      // Puedes personalizar más propiedades del AppBar aquí según tus necesidades
-    );
+    return AppBar(title: const Text("Promurcia"));
   }
 
   @override

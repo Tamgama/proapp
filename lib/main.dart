@@ -112,9 +112,7 @@ class HomePage extends StatelessWidget {
       builder: (context, appState, _) {
         // recibe contexto, estado e hijo _
         return Scaffold(
-          appBar: CustomAppBar(
-            title: "Promurcia",
-          ),
+          appBar: AppBar(title: const Text("Promurcia")),
           body: _widgetOptions.elementAt(appState.currentPage),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: appState.currentPage, // página actual

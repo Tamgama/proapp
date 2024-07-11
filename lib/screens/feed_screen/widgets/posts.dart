@@ -28,8 +28,13 @@ class BigCard extends StatelessWidget {
       margin: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         color: Colors.grey[200], // color de fondo del container
-        borderRadius:
-            BorderRadius.circular(5), // redondea las esquinas del container
+        borderRadius: BorderRadius.only(
+          // redondea las esquinas del container
+          bottomLeft: Radius.circular(5),
+          bottomRight: Radius.circular(5),
+          topLeft: Radius.circular(5),
+          topRight: Radius.circular(50),
+        ),
         boxShadow: [
           // sombrita de detrás
           BoxShadow(
@@ -49,7 +54,7 @@ class BigCard extends StatelessWidget {
             borderRadius: BorderRadius.only(
               // aplica un radio de borde a esquinas específicas
               topLeft: Radius.circular(5),
-              topRight: Radius.circular(100),
+              topRight: Radius.circular(50),
             ),
             child: Image.asset(
               imagePath,
