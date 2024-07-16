@@ -1,13 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proapp/main.dart';
+import 'package:proapp/widgets/layout.dart';
 
-class NavigationDrawer extends StatelessWidget {
+class NavRail extends StatefulWidget {
+  @override
+  _navRailState createState() => _navRailState();
+}
+
+class _navRailState extends State<NavRail>{
   @override
   Widget build(BuildContext context) {
     var appState = Provider.of<MyAppState>(context);
 
-    return Drawer(
+    final List<Widget> pages = [
+      feedScreen(),
+      reelsScreen(),
+      searchsScreen(),
+      favScreen(),
+      profileScreen(),
+    ];
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Scaffold(
+          body: Row(
+          children: [
+            SafeArea(
+              child: NavigationRail(
+                extended: constraints.maxWidth >= 600,
+                destinations: [
+                  NavigationRailDestination(
+                    icon: icon,
+                    label: label)
+                ],))
+          ],)
+
+            ]
+          ),
+        );
+      }
+    ),
+
+      Drawer(
       child: ListView(
         children: <Widget>[
           DrawerHeader(
@@ -63,6 +98,8 @@ class NavigationDrawer extends StatelessWidget {
             },
           ),
         ],
+      ),
+      ),
       ),
     );
   }

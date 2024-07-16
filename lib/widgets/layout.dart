@@ -13,6 +13,8 @@ class ResponsiveLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth >= 1100) {

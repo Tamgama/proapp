@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:proapp/widgets/responsive/layout.dart';
+import 'package:proapp/widgets/layout.dart';
 import 'package:proapp/widgets/drawer.dart';
 import 'package:proapp/screens/feed_screen/feed.dart';
 import 'package:proapp/screens/profile_screen/profile.dart';
@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget {
             appBar: AppBar(title: const Text("Promurcia")),
             body: Row(
               children: [
-                NavigationDrawer(),
+                NavDrawer(),
                 Expanded(
                   child: _widgetOptions.elementAt(appState.currentPage),
                 ),
@@ -104,7 +104,7 @@ class HomePage extends StatelessWidget {
             appBar: AppBar(title: const Text("Promurcia")),
             body: Row(
               children: [
-                NavigationDrawer(),
+                NavDrawer(),
                 Expanded(
                   child: _widgetOptions.elementAt(appState.currentPage),
                 ),
