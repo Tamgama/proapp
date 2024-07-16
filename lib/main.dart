@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:proapp/widgets/appbar.dart';
+import 'package:proapp/widgets/responsive/layout.dart';
+import 'package:proapp/widgets/drawer.dart';
 import 'package:proapp/screens/feed_screen/feed.dart';
 import 'package:proapp/screens/profile_screen/profile.dart';
 import 'package:proapp/screens/reels_screen/videos.dart';
@@ -52,6 +53,70 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class HomePage extends StatelessWidget {
+  // subclase
+  static List<Widget> _widgetOptions = <Widget>[
+    feedScreen(),
+    reelsScreen(),
+    searchsScreen(),
+    favScreen(),
+    profileScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MyAppState>(
+      builder: (context, appState, _) {
+        return ResponsiveLayout(
+          mobileBody: Scaffold(
+            appBar: AppBar(title: const Text("Promurcia")),
+            body: _widgetOptions.elementAt(appState.currentPage),
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: appState.currentPage,
+              onTap: (index) {
+                appState.setPage(index);
+              },
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.play_arrow), label: 'Reels'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.search), label: 'Search'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite), label: 'Favorites'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.person), label: 'Profile'),
+              ],
+            ),
+          ),
+          tabletBody: Scaffold(
+            appBar: AppBar(title: const Text("Promurcia")),
+            body: Row(
+              children: [
+                NavigationDrawer(),
+                Expanded(
+                  child: _widgetOptions.elementAt(appState.currentPage),
+                ),
+              ],
+            ),
+          ),
+          desktopBody: Scaffold(
+            appBar: AppBar(title: const Text("Promurcia")),
+            body: Row(
+              children: [
+                NavigationDrawer(),
+                Expanded(
+                  child: _widgetOptions.elementAt(appState.currentPage),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
 class MyAppState extends ChangeNotifier {
   // subclase
   final List<String> images = [
@@ -92,48 +157,5 @@ class MyAppState extends ChangeNotifier {
     // cambia la página actual y notifica cambios
     currentPage = index;
     notifyListeners();
-  }
-}
-
-class HomePage extends StatelessWidget {
-  // subclase
-  static const List<Widget> _widgetOptions = <Widget>[
-    feedScreen(),
-    reelsScreen(),
-    searchsScreen(),
-    favScreen(),
-    profileScreen(),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<MyAppState>(
-      // escucha los ambios de MyAppState
-      builder: (context, appState, _) {
-        // recibe contexto, estado e hijo _
-        return Scaffold(
-          appBar: AppBar(title: const Text("Promurcia")),
-          body: _widgetOptions.elementAt(appState.currentPage),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: appState.currentPage, // página actual
-            onTap: (index) {
-              // actualiza página
-              appState.setPage(index);
-            },
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.play_arrow), label: 'Reels'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.search), label: 'Search'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite), label: 'Favorites'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: 'Profile'),
-            ],
-          ),
-        );
-      },
-    );
   }
 }
