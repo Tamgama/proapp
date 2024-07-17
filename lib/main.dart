@@ -69,8 +69,11 @@ class HomePage extends StatelessWidget {
         return ResponsiveLayout(
           mobileBody: Scaffold(
             appBar: AppBar(
-              title: const Text("Promurcia"),
-            ),
+                title: GestureDetector(
+                    onTap: () {
+                      appState.setPage(0);
+                    },
+                    child: Text("Promurcia"))),
             body: _widgetOptions.elementAt(appState.currentPage),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: appState.currentPage,
@@ -92,7 +95,9 @@ class HomePage extends StatelessWidget {
           ),
           tabletBody: Scaffold(
             appBar: AppBar(
-              title: const Text("Promurcia"),
+              title: Text(
+                "Promurcia",
+              ),
               actions: [
                 Builder(
                   builder: (context) => IconButton(

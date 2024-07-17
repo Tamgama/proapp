@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:proapp/screens/feed_screen/feed.dart';
-import 'package:proapp/screens/reels_screen/videos.dart';
-import 'package:proapp/screens/search_screen/searchs.dart';
-import 'package:proapp/screens/saved_screen/favorites.dart';
-import 'package:proapp/screens/profile_screen/profile.dart';
 import 'package:proapp/main.dart';
 
 class BottomNavbar extends StatefulWidget {
@@ -17,16 +12,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   Widget build(BuildContext context) {
     final appState = Provider.of<MyAppState>(context);
 
-    final List<Widget> pages = [
-      feedScreen(),
-      reelsScreen(),
-      searchsScreen(),
-      favScreen(),
-      profileScreen(),
-    ];
-
     return Scaffold(
-      body: pages[appState.currentPage],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
         currentIndex: appState.currentPage,

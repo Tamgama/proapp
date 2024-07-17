@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:proapp/main.dart';
-import 'package:proapp/screens/feed_screen/feed.dart';
-import 'package:proapp/screens/profile_screen/profile.dart';
-import 'package:proapp/screens/reels_screen/videos.dart';
-import 'package:proapp/screens/saved_screen/favorites.dart';
-import 'package:proapp/screens/search_screen/searchs.dart';
 
 class NavDrawer extends StatelessWidget {
   @override
@@ -14,17 +11,26 @@ class NavDrawer extends StatelessWidget {
 
     return Drawer(
       child: ListView(
-        padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
+            padding: EdgeInsets.zero,
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
-            child: Text(
-              'Menu',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
+            child: Container(
+              height: 100,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Menu',
+                    style: TextStyle(
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
