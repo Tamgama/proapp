@@ -89,28 +89,8 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          tabletBody: Scaffold(
-            appBar: AppBar(title: const Text("Promurcia")),
-            body: Row(
-              children: [
-                NavDrawer(),
-                Expanded(
-                  child: _widgetOptions.elementAt(appState.currentPage),
-                ),
-              ],
-            ),
-          ),
-          desktopBody: Scaffold(
-            appBar: AppBar(title: const Text("Promurcia")),
-            body: Row(
-              children: [
-                NavDrawer(),
-                Expanded(
-                  child: _widgetOptions.elementAt(appState.currentPage),
-                ),
-              ],
-            ),
-          ),
+          tabletBody: NavRail(),
+          desktopBody: NavRail(),
         );
       },
     );

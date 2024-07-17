@@ -27,7 +27,8 @@ class BigCard extends StatelessWidget {
       //contenedor de los posts
       margin: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        color: Colors.grey[200], // color de fondo del container
+        color: Colors.grey[200],
+        // color de fondo del container
         borderRadius: BorderRadius.only(
           // redondea las esquinas del container
           bottomLeft: Radius.circular(5),
@@ -38,17 +39,17 @@ class BigCard extends StatelessWidget {
         boxShadow: [
           // sombrita de detrás
           BoxShadow(
-            color: Color.fromARGB(255, 0, 0, 0)
-                .withOpacity(0.2), // 20% de opacidad
+            color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
+            // 20% de opacidad
             blurRadius: 10, // radio de desenfoque de la sombra
-            offset: Offset(2,
-                2), // la sombra se desplaza 0 px horizontalmente y 3 verticalmente
+            offset: Offset(2, 2),
+            // la sombra se desplaza 0 px horizontalmente y 3 verticalmente
           ),
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment
-            .center, // alineación en e eje horizontal, en el centro
+        crossAxisAlignment: CrossAxisAlignment.center,
+        // alineación en e eje horizontal, en el centro
         children: [
           ClipRRect(
             borderRadius: BorderRadius.only(
@@ -58,10 +59,11 @@ class BigCard extends StatelessWidget {
             ),
             child: Image.asset(
               imagePath,
-              fit: BoxFit
-                  .cover, // cómo se ajusta la imagen al contenedor, con cover, a todo el área del container
-              width: double.infinity, // así ocupa todo el ancho disponible
-              height: 200,
+              fit: BoxFit.cover,
+              // cómo se ajusta la imagen al contenedor, con cover, a todo el área del container
+              width: double.infinity,
+              // así ocupa todo el ancho disponible
+              height: 250,
               errorBuilder: (context, error, stackTrace) {
                 return Center(
                   child: Text(
@@ -82,22 +84,33 @@ class BigCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                            isFav ? Icons.favorite : Icons.favorite_border),
+                        onPressed: () {
+                          appState.toggleFavorite(imagePath);
+                        },
+                      ),
+                    ]),
                 SizedBox(height: 4),
                 Row(
                   // container del precio y ubicacion en horizontal
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment
-                          .start, // alinea al inicio, parte superior
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // alinea al inicio, parte superior
                       children: [
                         Text(
                           price,
@@ -119,9 +132,11 @@ class BigCard extends StatelessWidget {
                     ),
                     Row(
                       // container de los botones
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(),
                             backgroundColor:
                                 const Color.fromARGB(255, 160, 160, 160),
                           ),
@@ -134,14 +149,7 @@ class BigCard extends StatelessWidget {
                           ),
                         ),
 
-                        SizedBox(width: 10), // separación enter los botones
-                        IconButton(
-                          icon: Icon(
-                              isFav ? Icons.favorite : Icons.favorite_border),
-                          onPressed: () {
-                            appState.toggleFavorite(imagePath);
-                          },
-                        ),
+                        SizedBox(width: 2), // separación entre los botones
                       ],
                     ),
                   ],
@@ -151,8 +159,8 @@ class BigCard extends StatelessWidget {
                   // descripción
                   description,
                   maxLines: 2,
-                  overflow: TextOverflow
-                      .ellipsis, // si el texto excede el maxLines, se comprime con ...
+                  overflow: TextOverflow.ellipsis,
+                  // si el texto excede el maxLines, se comprime con ...
                   style: TextStyle(
                     color: Colors.black,
                   ),
@@ -190,7 +198,7 @@ class CardList extends StatelessWidget {
             description:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas luctus sit amet lectus vitae mollis. Sed venenatis quam ut est elementum, ut condimentum leo aliquam.',
             price: '250,000€',
-            location: 'Ciudad Ejemplo, País',
+            location: 'Calle Ejemplo, Murcia',
           ),
         );
       },
