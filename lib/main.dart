@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proapp/widgets/layout.dart';
-import 'package:proapp/widgets/drawer.dart';
+import 'package:proapp/widgets/rigthbar.dart';
 import 'package:proapp/screens/feed_screen/feed.dart';
 import 'package:proapp/screens/profile_screen/profile.dart';
 import 'package:proapp/screens/reels_screen/videos.dart';

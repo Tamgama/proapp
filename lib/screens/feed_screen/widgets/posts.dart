@@ -136,7 +136,10 @@ class BigCard extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            shape: CircleBorder(),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                side: BorderSide(
+                                    color: Color.fromARGB(255, 139, 139, 139))),
                             backgroundColor:
                                 const Color.fromARGB(255, 160, 160, 160),
                           ),
