@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proapp/widgets/layout.dart';
-import 'package:proapp/widgets/rigthbar.dart';
+import 'package:proapp/widgets/drawer.dart';
 import 'package:proapp/screens/feed_screen/feed.dart';
 import 'package:proapp/screens/profile_screen/profile.dart';
 import 'package:proapp/screens/reels_screen/videos.dart';
@@ -69,7 +69,17 @@ class HomePage extends StatelessWidget {
       builder: (context, appState, _) {
         return ResponsiveLayout(
           mobileBody: Scaffold(
-            appBar: AppBar(title: const Text("Promurcia")),
+            appBar: AppBar(
+              title: const Text("Promurcia"),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                )
+              ],
+            ),
             body: _widgetOptions.elementAt(appState.currentPage),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: appState.currentPage,
@@ -88,9 +98,50 @@ class HomePage extends StatelessWidget {
                     icon: Icon(Icons.person), label: 'Profile'),
               ],
             ),
+            endDrawer: NavDrawer(),
           ),
-          tabletBody: NavRail(),
-          desktopBody: NavRail(),
+          tabletBody: Scaffold(
+            appBar: AppBar(
+              title: const Text("Promurcia"),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                ),
+              ],
+            ),
+            body: Row(
+              children: [
+                Expanded(
+                  child: _widgetOptions.elementAt(appState.currentPage),
+                ),
+              ],
+            ),
+            endDrawer: NavDrawer(),
+          ),
+          desktopBody: Scaffold(
+            appBar: AppBar(
+              title: const Text("Promurcia"),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                ),
+              ],
+            ),
+            body: Row(
+              children: [
+                Expanded(
+                  child: _widgetOptions.elementAt(appState.currentPage),
+                ),
+              ],
+            ),
+            endDrawer: NavDrawer(),
+          ),
         );
       },
     );
