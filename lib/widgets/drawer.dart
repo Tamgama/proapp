@@ -73,3 +73,18 @@ class NavDrawer extends StatelessWidget {
     );
   }
 }
+
+class ScaffoldDrawer extends StatelessWidget {
+  final Widget child;
+  final MyAppState appState;
+
+  const ScaffoldDrawer({required this.child, required this.appState});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      endDrawer: NavDrawer(),
+      body: child,
+    );
+  }
+}

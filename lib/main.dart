@@ -54,7 +54,6 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  // subclase
   static List<Widget> _widgetOptions = <Widget>[
     feedScreen(),
     reelsScreen(),
@@ -71,14 +70,6 @@ class HomePage extends StatelessWidget {
           mobileBody: Scaffold(
             appBar: AppBar(
               title: const Text("Promurcia"),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.menu),
-                  onPressed: () {
-                    Scaffold.of(context).openEndDrawer();
-                  },
-                )
-              ],
             ),
             body: _widgetOptions.elementAt(appState.currentPage),
             bottomNavigationBar: BottomNavigationBar(
@@ -98,17 +89,18 @@ class HomePage extends StatelessWidget {
                     icon: Icon(Icons.person), label: 'Profile'),
               ],
             ),
-            endDrawer: NavDrawer(),
           ),
           tabletBody: Scaffold(
             appBar: AppBar(
               title: const Text("Promurcia"),
               actions: [
-                IconButton(
-                  icon: Icon(Icons.menu),
-                  onPressed: () {
-                    Scaffold.of(context).openEndDrawer();
-                  },
+                Builder(
+                  builder: (context) => IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () {
+                      Scaffold.of(context).openEndDrawer();
+                    },
+                  ),
                 ),
               ],
             ),
@@ -125,11 +117,13 @@ class HomePage extends StatelessWidget {
             appBar: AppBar(
               title: const Text("Promurcia"),
               actions: [
-                IconButton(
-                  icon: Icon(Icons.menu),
-                  onPressed: () {
-                    Scaffold.of(context).openEndDrawer();
-                  },
+                Builder(
+                  builder: (context) => IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () {
+                      Scaffold.of(context).openEndDrawer();
+                    },
+                  ),
                 ),
               ],
             ),
