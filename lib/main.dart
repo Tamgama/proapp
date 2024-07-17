@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
   // solo para localizar, a eliminar
   final List<Color> _colores = [
     Color.fromARGB(255, 206, 149, 149),
-    const Color.fromARGB(255, 231, 221, 133),
-    const Color.fromARGB(255, 144, 249, 158),
+    Color.fromARGB(255, 231, 221, 133),
+    Color.fromARGB(255, 144, 249, 158),
     Color.fromARGB(255, 123, 200, 219),
     Color.fromARGB(255, 190, 130, 224),
   ];

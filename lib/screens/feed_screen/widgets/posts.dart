@@ -55,7 +55,7 @@ class BigCard extends StatelessWidget {
             borderRadius: BorderRadius.only(
               // aplica un radio de borde a esquinas específicas
               topLeft: Radius.circular(5),
-              topRight: Radius.circular(50),
+              topRight: Radius.circular(40),
             ),
             child: Image.asset(
               imagePath,
@@ -63,7 +63,7 @@ class BigCard extends StatelessWidget {
               // cómo se ajusta la imagen al contenedor, con cover, a todo el área del container
               width: double.infinity,
               // así ocupa todo el ancho disponible
-              height: 250,
+              height: 300,
               errorBuilder: (context, error, stackTrace) {
                 return Center(
                   child: Text(
