@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/main.dart';
+import 'package:proapp/screens/homes/homeview.dart';
 import 'package:provider/provider.dart';
-import 'package:proapp/screens/feed_screen/widgets/homeview.dart';
 
 class BigCard extends StatelessWidget {
   const BigCard({
@@ -45,19 +45,12 @@ class BigCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          InkWell(
+          GestureDetector(
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomesView(
-                    imagePath: imagePath,
-                    title: title,
-                    description: description,
-                    price: price,
-                    street: location.split(',')[0].trim(),
-                    city: location.split(',')[1].trim(),
-                  ),
+                  builder: (context) => homesScreen(),
                 ),
               );
             },
