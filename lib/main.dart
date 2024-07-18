@@ -37,7 +37,6 @@ class MyApp extends StatelessWidget {
         // escucha los cambios en Myappstate
         builder: (context, appState, _) {
           return MaterialApp(
-            title: 'proApp',
             theme: ThemeData(
               scaffoldBackgroundColor: _colores[appState.currentPage],
               bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -69,11 +68,13 @@ class HomePage extends StatelessWidget {
         return ResponsiveLayout(
           mobileBody: Scaffold(
             appBar: AppBar(
-                title: GestureDetector(
-                    onTap: () {
-                      appState.setPage(0);
-                    },
-                    child: Text("Promurcia"))),
+              title: GestureDetector(
+                onTap: () {
+                  appState.setPage(0);
+                },
+                child: Text("Promurcia"),
+              ),
+            ),
             body: _widgetOptions.elementAt(appState.currentPage),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: appState.currentPage,
@@ -95,8 +96,11 @@ class HomePage extends StatelessWidget {
           ),
           tabletBody: Scaffold(
             appBar: AppBar(
-              title: Text(
-                "Promurcia",
+              title: GestureDetector(
+                onTap: () {
+                  appState.setPage(0);
+                },
+                child: const Text("Promurcia"),
               ),
               actions: [
                 Builder(
@@ -120,7 +124,12 @@ class HomePage extends StatelessWidget {
           ),
           desktopBody: Scaffold(
             appBar: AppBar(
-              title: const Text("Promurcia"),
+              title: GestureDetector(
+                onTap: () {
+                  appState.setPage(0);
+                },
+                child: const Text("Promurcia"),
+              ),
               actions: [
                 Builder(
                   builder: (context) => IconButton(
