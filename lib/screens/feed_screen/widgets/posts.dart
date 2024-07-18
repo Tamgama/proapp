@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/main.dart';
-import 'package:proapp/screens/homes/homeview.dart';
+import 'package:proapp/screens/homes_screen/homeview.dart';
 import 'package:provider/provider.dart';
 
 class BigCard extends StatelessWidget {

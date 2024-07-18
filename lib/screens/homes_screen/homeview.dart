@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proapp/screens/homes/widgets/homes.dart';
+import 'package:proapp/screens/homes_screen/widgets/homes.dart';
 
 class homesScreen extends StatefulWidget {
   const homesScreen({Key? key}) : super(key: key);
