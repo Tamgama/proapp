@@ -29,8 +29,8 @@ class favScreen extends StatelessWidget {
                 'Casa en el Campo', // Puedes ajustar estos valores según tu necesidad
             price:
                 '250,000€', // Puedes ajustar estos valores según tu necesidad
-            location:
-                'Ciudad Ejemplo, País', // Puedes ajustar estos valores según tu necesidad
+            street: 'Calle Ejemplo',
+            city: 'Murcia', // Puedes ajustar estos valores según tu necesidad
             isFav: true,
           ),
         );

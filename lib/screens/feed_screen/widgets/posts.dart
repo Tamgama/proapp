@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
+import 'package:proapp/screens/feed_screen/widgets/homeview.dart';
 
 class BigCard extends StatelessWidget {
   const BigCard({
@@ -24,93 +25,98 @@ class BigCard extends StatelessWidget {
     bool isFav = appState.favorites.contains(imagePath);
 
     return Container(
-      //contenedor de los posts
       margin: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         color: Colors.grey[200],
-        // color de fondo del container
         borderRadius: BorderRadius.only(
-          // redondea las esquinas del container
           bottomLeft: Radius.circular(5),
           bottomRight: Radius.circular(5),
           topLeft: Radius.circular(5),
           topRight: Radius.circular(50),
         ),
         boxShadow: [
-          // sombrita de detrás
           BoxShadow(
             color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
-            // 20% de opacidad
-            blurRadius: 10, // radio de desenfoque de la sombra
+            blurRadius: 10,
             offset: Offset(2, 2),
-            // la sombra se desplaza 0 px horizontalmente y 3 verticalmente
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        // alineación en e eje horizontal, en el centro
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              // aplica un radio de borde a esquinas específicas
-              topLeft: Radius.circular(5),
-              topRight: Radius.circular(40),
-            ),
-            child: Image.asset(
-              imagePath,
-              fit: BoxFit.cover,
-              // cómo se ajusta la imagen al contenedor, con cover, a todo el área del container
-              width: double.infinity,
-              // así ocupa todo el ancho disponible
-              height: 300,
-              errorBuilder: (context, error, stackTrace) {
-                return Center(
-                  child: Text(
-                    'Error al cargar la imagen',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomesView(
+                    imagePath: imagePath,
+                    title: title,
+                    description: description,
+                    price: price,
+                    street: location.split(',')[0].trim(),
+                    city: location.split(',')[1].trim(),
                   ),
-                );
-              },
+                ),
+              );
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(5),
+                topRight: Radius.circular(40),
+              ),
+              child: Image.asset(
+                imagePath,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: 300,
+                errorBuilder: (context, error, stackTrace) {
+                  return Center(
+                    child: Text(
+                      'Error al cargar la imagen',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
           Padding(
-            //contenedor de caracteristicas
-            padding: const EdgeInsets.all(
-                8.0), // añade el pad de 8px a la caja de características
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
-                      IconButton(
-                        icon: Icon(
-                            isFav ? Icons.favorite : Icons.favorite_border),
-                        onPressed: () {
-                          appState.toggleFavorite(imagePath);
-                        },
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        isFav ? Icons.favorite : Icons.favorite_border,
                       ),
-                    ]),
+                      onPressed: () {
+                        appState.toggleFavorite(imagePath);
+                      },
+                    ),
+                  ],
+                ),
                 SizedBox(height: 4),
                 Row(
-                  // container del precio y ubicacion en horizontal
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      // alinea al inicio, parte superior
                       children: [
                         Text(
                           price,
@@ -119,8 +125,7 @@ class BigCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(
-                            width: 10), // separación entre precio y ubicación
+                        SizedBox(width: 10),
                         Text(
                           location,
                           style: TextStyle(
@@ -130,40 +135,33 @@ class BigCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Row(
-                      // container de los botones
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                side: BorderSide(
-                                    color: Color.fromARGB(255, 139, 139, 139))),
-                            backgroundColor:
-                                const Color.fromARGB(255, 160, 160, 160),
-                          ),
-                          onPressed: () {},
-                          child: Text(
-                            "Pide cita",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                          side: BorderSide(
+                            color: Color.fromARGB(255, 139, 139, 139),
                           ),
                         ),
-
-                        SizedBox(width: 2), // separación entre los botones
-                      ],
+                        backgroundColor:
+                            const Color.fromARGB(255, 160, 160, 160),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        "Pide cita",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ],
                 ),
                 SizedBox(height: 4),
                 Text(
-                  // descripción
                   description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  // si el texto excede el maxLines, se comprime con ...
                   style: TextStyle(
                     color: Colors.black,
                   ),

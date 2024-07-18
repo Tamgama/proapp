@@ -8,14 +8,16 @@ class savedCard extends StatelessWidget {
     required this.imagePath,
     required this.title,
     required this.price,
-    required this.location,
+    required this.street,
+    required this.city,
     required this.isFav,
   }) : super(key: key);
 
   final String imagePath;
   final String title;
   final String price;
-  final String location;
+  final String street;
+  final String city;
   final bool isFav;
 
   @override
@@ -104,7 +106,14 @@ class savedCard extends StatelessWidget {
                         SizedBox(width: 10),
                         // separación entre precio y ubicación
                         Text(
-                          location,
+                          street,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          city,
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -177,7 +186,8 @@ class CardList extends StatelessWidget {
             imagePath: imagePath,
             title: 'Casa en el Campo',
             price: '250,000€',
-            location: 'Ciudad Ejemplo, País',
+            street: 'calle Ejemplo',
+            city: 'Murcia',
             isFav: true,
           ),
         );
