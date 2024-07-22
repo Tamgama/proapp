@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/main.dart';
+import 'package:proapp/screens/homes_screen/homeview.dart';
 import 'package:provider/provider.dart';
 
 class savedCard extends StatelessWidget {
@@ -47,29 +48,35 @@ class savedCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         // alineación en e eje horizontal, en el centro
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              // aplica un radio de borde a esquinas específicas
-              topLeft: Radius.circular(5),
-              topRight: Radius.circular(5),
-            ),
-            child: Image.asset(
-              imagePath,
-              fit: BoxFit.cover,
-              // cómo se ajusta la imagen al contenedor, con cover, a todo el área del container
-              width: double.infinity, // así ocupa todo el ancho disponible
-              height: 200,
-              errorBuilder: (context, error, stackTrace) {
-                return Center(
-                  child: Text(
-                    'Error al cargar la imagen',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => homesScreen()));
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                // aplica un radio de borde a esquinas específicas
+                topLeft: Radius.circular(5),
+                topRight: Radius.circular(5),
+              ),
+              child: Image.asset(
+                imagePath,
+                fit: BoxFit.cover,
+                // cómo se ajusta la imagen al contenedor, con cover, a todo el área del container
+                width: double.infinity, // así ocupa todo el ancho disponible
+                height: 200,
+                errorBuilder: (context, error, stackTrace) {
+                  return Center(
+                    child: Text(
+                      'Error al cargar la imagen',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
           Padding(
@@ -112,6 +119,7 @@ class savedCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        SizedBox(width: 10),
                         Text(
                           city,
                           style: TextStyle(
