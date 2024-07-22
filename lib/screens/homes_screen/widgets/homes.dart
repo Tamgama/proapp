@@ -1,17 +1,88 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:proapp/main.dart';
+import 'package:provider/provider.dart';
 
-class homes extends StatelessWidget {
-  const homes({
+class Homes extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+  Homes({
     Key? key,
     this.imagePath = "",
+    }) : super (key: key);
+
+    final description = Description(
+      title: title,
+      description: this.description,
+      price: price,
+      street: street,
+      city: city,
+      streetNum: streetNum,
+      district: district,
+      door: door,
+      floor: floor,
+      edif: edif,
+      ref: ref,
+      type: type,
+      wc: wc,
+      rooms: rooms,
+      area: area,
+    );
+    final String imagePath;
+
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.deepPurple[200],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Column(
+        children: [
+          Container(
+            height: 400,
+            color: Colors.deepPurple[400],
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              errorBuilder: (context, error, StackTrace) {
+                return Center(
+                    child: Text(
+                  "Error al cargar la imagen",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black),
+                ));
+              },
+            ),
+          ),
+
+          Expanded(
+            child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView(
+                  children: description.items,
+                )
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class Description extends StatelessWidget {
+  Description({
+    Key? key,
     this.title = "",
     this.description = "",
     this.price = "",
     this.street = "",
     this.city = "",
-    this.streetNum = "",
+    this.elevator = "",
     this.district = "",
-    this.door = "",
     this.floor = "",
     this.edif = "",
     this.ref = "",
@@ -27,9 +98,8 @@ class homes extends StatelessWidget {
   final String price;
   final String street;
   final String city;
-  final String streetNum;
   final String district;
-  final String door;
+  final String elevator;
   final String floor;
   final String edif;
   final String ref;
@@ -38,105 +108,53 @@ class homes extends StatelessWidget {
   final String rooms;
   final String area;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.deepPurple[200],
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            // youtube video
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: AspectRatio(
-                aspectRatio: 16 / 9,
-                child: Container(
-                  color: Colors.deepPurple[400],
-                ),
-              ),
+  List<Widget> get items {
+    return [
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
             ),
-
-            // comment section & recommended videos
-            Expanded(
-              child: ListView.builder(
-                itemCount: 8,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Colors.deepPurple[300],
-                      height: 120,
-                    ),
-                  );
-                },
-              ),
-            )
-          ],
+          ),
+          Text(
+            "$district, $city",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            price,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
         ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            area,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
       ),
-    );
+    Text(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vehicula ipsum nisi, eu elementum velit placerat ac. Fusce diam ligula, accumsan nec mattis quis, posuere eget ipsum. Praesent sodales scelerisque elit eu elementum. Sed erat dui, eleifend ut sollicitudin a, fringilla et dui. Suspendisse vitae viverra ipsum, et dignissim tellus. Vivamus tincidunt congue sagittis. Maecenas ut turpis non urna rhoncus cursus. Aenean lobortis a nisi ac molestie. Phasellus at tellus vel ligula semper cursus sed sit amet risus. Donec viverra sem sit amet elit maximus, non sodales augue convallis. "),
+    Row(),
+    ]
   }
 }
-
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(),
-//       body: SingleChildScrollView(
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Image.asset(imagePath, fit: BoxFit.cover, width: double.infinity),
-//             Padding(
-//               padding: const EdgeInsets.all(16.0),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Text(
-//                     title,
-//                     style: TextStyle(
-//                       fontSize: 24,
-//                       fontWeight: FontWeight.bold,
-//                     ),
-//                   ),
-//                   SizedBox(height: 8),
-//                   Text(
-//                     '$street, $city',
-//                     style: TextStyle(
-//                       fontSize: 18,
-//                       color: Color.fromARGB(255, 32, 27, 107),
-//                     ),
-//                   ),
-//                   SizedBox(height: 8),
-//                   Text(
-//                     price,
-//                     style: TextStyle(
-//                       fontSize: 20,
-//                       fontWeight: FontWeight.bold,
-//                       color: Color.fromARGB(255, 16, 77, 18),
-//                     ),
-//                   ),
-//                   SizedBox(height: 16),
-//                   Text(
-//                     description,
-//                     style: TextStyle(fontSize: 16),
-//                   ),
-//                   SizedBox(height: 16),
-//                   ElevatedButton(
-//                     onPressed: () {
-//                       // Implementar funcionalidad de "Pide cita"
-//                     },
-//                     child: Text('Pide cita'),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
