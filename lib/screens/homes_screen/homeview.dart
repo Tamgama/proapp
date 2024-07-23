@@ -13,7 +13,7 @@ class _homeState extends State<homesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Homes(),
+        child: HomeDetails(),
       ),
     );
   }
