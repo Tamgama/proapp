@@ -1,28 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/main.dart';
-import 'package:proapp/screens/homes_screen/homeview.dart';
 import 'package:provider/provider.dart';
+import 'package:proapp/screens/homes_screen/widgets/home.dart';
 
 class BigCard extends StatelessWidget {
-  const BigCard({
-    Key? key,
-    required this.imagePath,
-    required this.title,
-    required this.description,
-    required this.price,
-    required this.location,
-  }) : super(key: key);
+  final Home home;
 
-  final String imagePath;
-  final String title;
-  final String description;
-  final String price;
-  final String location;
+  const BigCard({Key? key, required this.home}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-    bool isFav = appState.favorites.contains(imagePath);
+    bool isFav = appState.favorites.contains(home);
 
     return Container(
       margin: EdgeInsets.all(8.0),
@@ -50,7 +39,7 @@ class BigCard extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => homesScreen(),
+                  builder: (context) => HomeDetails(home: home),
                 ),
               );
             },
@@ -60,7 +49,7 @@ class BigCard extends StatelessWidget {
                 topRight: Radius.circular(40),
               ),
               child: Image.asset(
-                imagePath,
+                home.imagePath,
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: 300,
@@ -87,7 +76,7 @@ class BigCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      title,
+                      home.title,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,
@@ -99,7 +88,7 @@ class BigCard extends StatelessWidget {
                         isFav ? Icons.favorite : Icons.favorite_border,
                       ),
                       onPressed: () {
-                        appState.toggleFavorite(imagePath);
+                        appState.toggleFavorite(home);
                       },
                     ),
                   ],
@@ -112,7 +101,7 @@ class BigCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          price,
+                          home.price,
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -120,7 +109,7 @@ class BigCard extends StatelessWidget {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          location,
+                          "${home.street}, ${home.city}",
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -152,7 +141,7 @@ class BigCard extends StatelessWidget {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  description,
+                  home.description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -174,25 +163,21 @@ class CardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // construcción del widget
-    var appState = context
-        .watch<MyAppState>(); // obtención del estado de la app con provider
-    final imagePaths = appState.images.take(10).toList();
+    var appState = context.watch<MyAppState>();
+    // obtención del estado de la app con provider
+    final homes = appState.homes;
 
     return ListView.builder(
       // lista de bigcards
-      itemCount: imagePaths.length, // nº de elementos de la lista
+      itemCount: homes.length, // nº de elementos de la lista
       itemBuilder: (context, index) {
+        final home = homes[index];
         return Padding(
           // estructura de tarjetas dentro de la lista
           padding: const EdgeInsets.fromLTRB(4.0, 2.0, 4.0, 2.0),
           child: BigCard(
             // widget personalizado con la info de la tarjeta
-            imagePath: imagePaths[index],
-            title: 'Casa en el Campo',
-            description:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas luctus sit amet lectus vitae mollis. Sed venenatis quam ut est elementum, ut condimentum leo aliquam.',
-            price: '250,000€',
-            location: 'Calle Ejemplo, Murcia',
+            home: home,
           ),
         );
       },

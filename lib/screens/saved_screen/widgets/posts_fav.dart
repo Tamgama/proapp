@@ -1,29 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/main.dart';
-import 'package:proapp/screens/homes_screen/homeview.dart';
+import 'package:proapp/screens/homes_screen/widgets/home.dart';
 import 'package:provider/provider.dart';
 
-class savedCard extends StatelessWidget {
-  const savedCard({
-    Key? key,
-    required this.imagePath,
-    required this.title,
-    required this.price,
-    required this.street,
-    required this.city,
-    required this.isFav,
-  }) : super(key: key);
+class SavedCard extends StatelessWidget {
+  final Home home;
 
-  final String imagePath;
-  final String title;
-  final String price;
-  final String street;
-  final String city;
-  final bool isFav;
+  const SavedCard({
+    Key? key,
+    required this.home,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
+    bool isFav = appState.favorites.contains(home);
 
     return Container(
       //contenedor de los posts
@@ -50,8 +41,12 @@ class savedCard extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => homesScreen()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeDetails(home: home),
+                ),
+              );
             },
             child: ClipRRect(
               borderRadius: BorderRadius.only(
@@ -60,7 +55,7 @@ class savedCard extends StatelessWidget {
                 topRight: Radius.circular(5),
               ),
               child: Image.asset(
-                imagePath,
+                home.imagePath,
                 fit: BoxFit.cover,
                 // cómo se ajusta la imagen al contenedor, con cover, a todo el área del container
                 width: double.infinity, // así ocupa todo el ancho disponible
@@ -87,7 +82,7 @@ class savedCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  home.title,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
@@ -104,7 +99,7 @@ class savedCard extends StatelessWidget {
                       // alinea al inicio, parte superior
                       children: [
                         Text(
-                          price,
+                          home.price,
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -113,7 +108,7 @@ class savedCard extends StatelessWidget {
                         SizedBox(width: 10),
                         // separación entre precio y ubicación
                         Text(
-                          street,
+                          home.street,
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -121,7 +116,7 @@ class savedCard extends StatelessWidget {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          city,
+                          home.city,
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -150,7 +145,7 @@ class savedCard extends StatelessWidget {
                           icon: Icon(
                               isFav ? Icons.favorite : Icons.favorite_border),
                           onPressed: () {
-                            appState.toggleFavorite(imagePath);
+                            appState.toggleFavorite(home);
                           },
                         ),
                       ],
@@ -167,39 +162,33 @@ class savedCard extends StatelessWidget {
   }
 }
 
-class CardList extends StatelessWidget {
-  const CardList({Key? key}) : super(key: key); // widgets inmutable, constante
+// class CardList extends StatelessWidget {
+//   const CardList({Key? key}) : super(key: key); // widgets inmutable, constante
 
-  @override
-  Widget build(BuildContext context) {
-    // construcción del widget
-    var appState = context.watch<MyAppState>();
-    // obtención del estado de la app con provider
-    final List<String> allImages = appState.images;
-    final List<String> favoriteImages = appState.favorites;
+//   @override
+//   Widget build(BuildContext context) {
+//     // construcción del widget
+//     var appState = context.watch<MyAppState>();
+//     // obtención del estado de la app con provider
+//     final homes = appState.homes;
 
-    return ListView.builder(
-      // lista de bigcards
-      itemCount: allImages.length, // nº de elementos de la lista
-      itemBuilder: (context, index) {
-        String imagePath = allImages[index];
-        bool isFav = favoriteImages.contains(imagePath);
-        // Determinación dinámica de isFav
+//     return ListView.builder(
+//       // lista de bigcards
+//       itemCount: homes.length, // nº de elementos de la lista
+//       itemBuilder: (context, index) {
+//         final home = homes[index];
+//         bool isFav = favoriteImages.contains(imagePath);
+//         // Determinación dinámica de isFav
 
-        return Padding(
-          // estructura de tarjetas dentro de la lista
-          padding: const EdgeInsets.fromLTRB(4.0, 2.0, 4.0, 2.0),
-          child: savedCard(
-            // widget personalizado con la info de la tarjeta
-            imagePath: imagePath,
-            title: 'Casa en el Campo',
-            price: '250,000€',
-            street: 'calle Ejemplo',
-            city: 'Murcia',
-            isFav: true,
-          ),
-        );
-      },
-    );
-  }
-}
+//         return Padding(
+//           // estructura de tarjetas dentro de la lista
+//           padding: const EdgeInsets.fromLTRB(4.0, 2.0, 4.0, 2.0),
+//           child: savedCard(
+//             // widget personalizado con la info de la tarjeta
+//             home: home,
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }

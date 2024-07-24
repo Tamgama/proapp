@@ -7,6 +7,7 @@ import 'package:proapp/screens/profile_screen/profile.dart';
 import 'package:proapp/screens/reels_screen/videos.dart';
 import 'package:proapp/screens/saved_screen/favorites.dart';
 import 'package:proapp/screens/search_screen/searchs.dart';
+import 'package:proapp/screens/homes_screen/widgets/home.dart';
 
 void main() {
   // ejecución pa iniciar la app
@@ -167,27 +168,44 @@ class MyAppState extends ChangeNotifier {
     "assets/casa6.png",
   ];
 
-  String currentImage;
+  final List<Home> homes = [
+    Home(
+      imagePath: "assets/casa1.png",
+      title: "Casa en el Campo",
+      description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer semper semper varius. Quisque lobortis odio gravida metus semper, at placerat urna sodales. Duis dapibus risus eget augue malesuada bibendum. Ut posuere nunc et leo egestas, ut accumsan purus iaculis. Morbi cursus sollicitudin tempus. Vestibulum sed sapien laoreet, finibus augue eu, pellentesque augue. Fusce et nibh consequat lectus ultricies rutrum. Maecenas ornare nec dolor at pharetra. Suspendisse imperdiet sit amet eros ac aliquam. Nullam vel dolor ut odio egestas maximus. Quisque efficitur mauris massa, ac pulvinar lectus accumsan non. Nulla faucibus sem quis molestie mollis. In molestie elit quis vehicula interdum. ",
+      price: "250,000€",
+      street: "Calle Ejemplo",
+      city: "Murcia",
+      district: "Distrito Ejemplo",
+      elevator: "con ascensor",
+      floor: 1,
+      wc: 2,
+      rooms: 4,
+      area: "120m²",
+    ),
+  ];
+
+  // String currentImage;
+  final List<Home> favorites = [];
   int currentPage = 0;
 
-  MyAppState() : currentImage = "assets/casa1.png" {
-    getNext();
-  }
+  // MyAppState() : currentImage = "assets/casa1.png" {
+  //   getNext();
+  // }
 
-  void getNext() {
-    // selección aleatoria de imágenes
-    currentImage = (images..shuffle()).first;
-    notifyListeners();
-  }
+  // void getNext() {
+  //   // selección aleatoria de imágenes
+  //   currentImage = (images..shuffle()).first;
+  //   notifyListeners();
+  // }
 
-  var favorites = <String>[];
-
-  void toggleFavorite(String imageUrl) {
+  void toggleFavorite(Home home) {
     // para agregar y quitar favs y notificar los cambios
-    if (favorites.contains(imageUrl)) {
-      favorites.remove(imageUrl);
+    if (favorites.contains(home)) {
+      favorites.remove(home);
     } else {
-      favorites.add(imageUrl);
+      favorites.add(home);
     }
     notifyListeners();
   }

@@ -1,36 +1,12 @@
 import 'package:flutter/material.dart';
 
 class HomeDetails extends StatelessWidget {
+  final Home home;
+
   const HomeDetails({
     Key? key,
-    this.imagePath = "",
-    this.title = "",
-    this.description = "",
-    this.price = "",
-    this.street = "",
-    this.city = "",
-    this.elevator = "",
-    this.district = "",
-    this.floor = "",
-    this.ref = "",
-    this.wc = "",
-    this.rooms = "",
-    this.area = "",
+    required this.home,
   }) : super(key: key);
-
-  final String imagePath;
-  final String title; //
-  final String description; //
-  final String price; //
-  final String street; //
-  final String city; //
-  final String district; //
-  final String elevator; //
-  final String floor; //
-  final String ref; //
-  final String wc; //
-  final String rooms; //
-  final String area; //
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +23,7 @@ class HomeDetails extends StatelessWidget {
             height: 400,
             color: Colors.deepPurple[400],
             child: Image.asset(
-              imagePath,
+              home.imagePath,
               fit: BoxFit.cover,
               width: double.infinity,
               errorBuilder: (context, error, StackTrace) {
@@ -66,7 +42,7 @@ class HomeDetails extends StatelessWidget {
               child: ListView(
                 children: [
                   Text(
-                    "$title en $street",
+                    "${home.title} en ${home.street}",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 14,
@@ -74,7 +50,7 @@ class HomeDetails extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "$district, $city",
+                    "${home.district}, ${home.city}",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 14,
@@ -82,7 +58,7 @@ class HomeDetails extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    price,
+                    home.price,
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,
@@ -90,7 +66,7 @@ class HomeDetails extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    description,
+                    home.description,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 14,
@@ -99,7 +75,7 @@ class HomeDetails extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "$floor ª planta $elevator ",
+                    "${home.floor} ª planta ${home.elevator} ",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 14,
@@ -108,7 +84,7 @@ class HomeDetails extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    "$rooms habitaciones y $wc baños",
+                    "${home.rooms} habitaciones y ${home.wc} baños",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 14,
@@ -116,13 +92,22 @@ class HomeDetails extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 8),
-                  Text(
-                    ref,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          // Acción para el primer botón
+                        },
+                        child: Text('Contactar'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          // Acción para el segundo botón
+                        },
+                        child: Text('Ver en Mapa'),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -134,4 +119,32 @@ class HomeDetails extends StatelessWidget {
   }
 }
 
-// "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vehicula ipsum nisi, eu elementum velit placerat ac. Fusce diam ligula, accumsan nec mattis quis, posuere eget ipsum. Praesent sodales scelerisque elit eu elementum. Sed erat dui, eleifend ut sollicitudin a, fringilla et dui. Suspendisse vitae viverra ipsum, et dignissim tellus. Vivamus tincidunt congue sagittis. Maecenas ut turpis non urna rhoncus cursus. Aenean lobortis a nisi ac molestie. Phasellus at tellus vel ligula semper cursus sed sit amet risus. Donec viverra sem sit amet elit maximus, non sodales augue convallis."
+class Home {
+  final String imagePath;
+  final String title;
+  final String price;
+  final String street;
+  final String city;
+  final String description;
+  final String district;
+  final String elevator;
+  final int floor;
+  final int wc;
+  final int rooms;
+  final String area;
+
+  Home({
+    required this.imagePath,
+    required this.title,
+    required this.price,
+    required this.street,
+    required this.city,
+    required this.description,
+    required this.district,
+    required this.elevator,
+    required this.floor,
+    required this.wc,
+    required this.rooms,
+    required this.area,
+  });
+}

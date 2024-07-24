@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:proapp/screens/homes_screen/widgets/homes.dart';
+import 'package:provider/provider.dart';
+import 'package:proapp/main.dart';
+import 'package:proapp/screens/feed_screen/widgets/posts.dart';
 
-class homesScreen extends StatefulWidget {
-  const homesScreen({Key? key}) : super(key: key);
+class HomesScreen extends StatefulWidget {
+  const HomesScreen({Key? key}) : super(key: key);
 
   @override
-  _homeState createState() => _homeState();
+  _HomesScreenState createState() => _HomesScreenState();
 }
 
-class _homeState extends State<homesScreen> {
+class _HomesScreenState extends State<HomesScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: HomeDetails(),
-      ),
+    var appState = context.watch<MyAppState>();
+
+    return ListView.builder(
+      itemCount: appState.homes.length,
+      itemBuilder: (context, index) {
+        return BigCard(home: appState.homes[index]);
+      },
     );
   }
 }
