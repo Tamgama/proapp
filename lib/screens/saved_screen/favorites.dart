@@ -20,22 +20,6 @@ class favScreen extends StatelessWidget {
       itemCount: appState.favorites.length,
       itemBuilder: (context, index) {
         return SavedCard(home: appState.favorites[index]);
-
-        // String imagePath = appState.favorites[index];
-
-        // return Padding(
-        //   padding: const EdgeInsets.fromLTRB(4.0, 2.0, 4.0, 2.0),
-        //   child: savedCard(
-        //     imagePath: imagePath,
-        //     title:
-        //         'casa guardada', // Puedes ajustar estos valores según tu necesidad
-        //     price:
-        //         '250,000€', // Puedes ajustar estos valores según tu necesidad
-        //     street: 'Calle Ejemplo',
-        //     city: 'Murcia', // Puedes ajustar estos valores según tu necesidad
-        //     isFav: true,
-        //   ),
-        // );
       },
     );
   }

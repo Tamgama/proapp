@@ -159,14 +159,6 @@ class HomePage extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   // subclase
-  final List<String> images = [
-    "assets/casa1.png",
-    "assets/casa2.png",
-    "assets/casa3.png",
-    "assets/casa4.png",
-    "assets/casa5.png",
-    "assets/casa6.png",
-  ];
 
   final List<Home> homes = [
     Home(
@@ -186,19 +178,8 @@ class MyAppState extends ChangeNotifier {
     ),
   ];
 
-  // String currentImage;
   final List<Home> favorites = [];
   int currentPage = 0;
-
-  // MyAppState() : currentImage = "assets/casa1.png" {
-  //   getNext();
-  // }
-
-  // void getNext() {
-  //   // selección aleatoria de imágenes
-  //   currentImage = (images..shuffle()).first;
-  //   notifyListeners();
-  // }
 
   void toggleFavorite(Home home) {
     // para agregar y quitar favs y notificar los cambios
