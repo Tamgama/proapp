@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:proapp/screens/homes_screen/widgets/home.dart';
 import 'package:provider/provider.dart';
 import 'package:proapp/main.dart';
-import 'package:proapp/screens/feed_screen/widgets/posts.dart';
 
 class HomesScreen extends StatefulWidget {
   const HomesScreen({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _HomesScreenState extends State<HomesScreen> {
     return ListView.builder(
       itemCount: appState.homes.length,
       itemBuilder: (context, index) {
-        return BigCard(home: appState.homes[index]);
+        return HomeDetails(home: appState.homes[index]);
       },
     );
   }

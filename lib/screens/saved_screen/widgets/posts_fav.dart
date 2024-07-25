@@ -161,34 +161,3 @@ class SavedCard extends StatelessWidget {
     );
   }
 }
-
-// class CardList extends StatelessWidget {
-//   const CardList({Key? key}) : super(key: key); // widgets inmutable, constante
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // construcción del widget
-//     var appState = context.watch<MyAppState>();
-//     // obtención del estado de la app con provider
-//     final homes = appState.homes;
-
-//     return ListView.builder(
-//       // lista de bigcards
-//       itemCount: homes.length, // nº de elementos de la lista
-//       itemBuilder: (context, index) {
-//         final home = homes[index];
-//         bool isFav = favoriteImages.contains(imagePath);
-//         // Determinación dinámica de isFav
-
-//         return Padding(
-//           // estructura de tarjetas dentro de la lista
-//           padding: const EdgeInsets.fromLTRB(4.0, 2.0, 4.0, 2.0),
-//           child: savedCard(
-//             // widget personalizado con la info de la tarjeta
-//             home: home,
-//           ),
-//         );
-//       },
-//     );
-//   }
-// }

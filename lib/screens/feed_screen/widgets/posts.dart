@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:proapp/widgets/drawer.dart';
 import 'package:proapp/widgets/layout.dart';
 import 'package:proapp/screens/homes_screen/widgets/home.dart';
@@ -15,10 +14,6 @@ class BigCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     bool isFav = appState.favorites.contains(home);
-
-    final List<Widget> _widgetOptions = [
-      CardList(),
-    ];
 
     return Consumer<MyAppState>(
       builder: (context, appState, _) {
@@ -62,7 +57,7 @@ class BigCard extends StatelessWidget {
                       home.imagePath,
                       fit: BoxFit.cover,
                       width: double.infinity,
-                      height: 300.h, // Altura de la imagen en porcentaje
+                      height: 300, // Altura de la imagen en porcentaje
                       errorBuilder: (context, error, stackTrace) {
                         return Center(
                           child: Text(
@@ -78,7 +73,7 @@ class BigCard extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(8.0.w), // Padding en porcentaje
+                  padding: EdgeInsets.all(8.0), // Padding en porcentaje
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -89,7 +84,7 @@ class BigCard extends StatelessWidget {
                             home.title,
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 18.sp, // Tamaño de texto en porcentaje
+                              fontSize: 18, // Tamaño de texto en porcentaje
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -103,7 +98,7 @@ class BigCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 4.h), // Espacio en porcentaje
+                      SizedBox(height: 4), // Espacio en porcentaje
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -117,7 +112,7 @@ class BigCard extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(width: 10.w), // Espacio en porcentaje
+                              SizedBox(width: 10), // Espacio en porcentaje
                               Text(
                                 "${home.street}, ${home.city}",
                                 style: TextStyle(
@@ -149,7 +144,7 @@ class BigCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 4.h), // Espacio en porcentaje
+                      SizedBox(height: 4), // Espacio en porcentaje
                       Text(
                         home.description,
                         maxLines: 2,
@@ -359,7 +354,7 @@ class BigCard extends StatelessWidget {
               itemBuilder: (context, index) {
                 final home = appState.homes[index];
                 return Padding(
-                  padding: EdgeInsets.fromLTRB(4.0.w, 2.0.h, 4.0.w, 2.0.h),
+                  padding: EdgeInsets.fromLTRB(4.0, 2.0, 4.0, 2.0),
                   child: Row(
                     children: [
                       ClipRRect(
@@ -367,8 +362,8 @@ class BigCard extends StatelessWidget {
                         child: Image.asset(
                           home.imagePath,
                           fit: BoxFit.cover,
-                          width: 20.w, // Ancho de la imagen en porcentaje
-                          height: 20.h, // Altura de la imagen en porcentaje
+                          width: 20,
+                          height: 20,
                           errorBuilder: (context, error, stackTrace) {
                             return Center(
                               child: Text(
@@ -384,8 +379,7 @@ class BigCard extends StatelessWidget {
                       ),
                       Expanded(
                         child: Padding(
-                          padding:
-                              EdgeInsets.all(2.0.w), // Padding en porcentaje
+                          padding: EdgeInsets.all(2.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -397,8 +391,7 @@ class BigCard extends StatelessWidget {
                                     home.title,
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 2.5
-                                          .w, // Tamaño de texto en porcentaje
+                                      fontSize: 2.5,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -414,7 +407,7 @@ class BigCard extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 1.h), // Espacio en porcentaje
+                              SizedBox(height: 1),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -430,9 +423,7 @@ class BigCard extends StatelessWidget {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(
-                                          width:
-                                              1.5.w), // Espacio en porcentaje
+                                      SizedBox(width: 1.5),
                                       Text(
                                         "${home.street}, ${home.city}",
                                         style: TextStyle(
@@ -466,7 +457,7 @@ class BigCard extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 1.h), // Espacio en porcentaje
+                              SizedBox(height: 1),
                               Text(
                                 home.description,
                                 maxLines: 2,
@@ -493,8 +484,6 @@ class BigCard extends StatelessWidget {
 }
 
 class CardList extends StatelessWidget {
-  const CardList({Key? key}) : super(key: key); // widgets inmutable, constante
-
   @override
   Widget build(BuildContext context) {
     // construcción del widget

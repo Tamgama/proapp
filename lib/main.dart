@@ -11,7 +11,13 @@ import 'package:proapp/screens/homes_screen/widgets/home.dart';
 
 void main() {
   // ejecución pa iniciar la app
-  runApp(MyApp()); //punto de entrada
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => MyAppState(),
+      // escucha los cambios en Myappstate
+      child: MyApp(),
+    ),
+  ); //punto de entrada
 }
 
 class MyApp extends StatelessWidget {
@@ -24,7 +30,7 @@ class MyApp extends StatelessWidget {
     Color.fromARGB(255, 231, 221, 133),
     Color.fromARGB(255, 144, 249, 158),
     Color.fromARGB(255, 123, 200, 219),
-    Color.fromARGB(255, 190, 130, 224),
+    Color.fromARGB(255, 213, 130, 224),
   ];
 
   @override
@@ -32,23 +38,19 @@ class MyApp extends StatelessWidget {
     // contructor
     // devuelve un MaterialApp con tema y título definidos
     // y HomePage como página inicial
-    return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
-      child: Consumer<MyAppState>(
-        // escucha los cambios en Myappstate
-        builder: (context, appState, _) {
-          return MaterialApp(
-            theme: ThemeData(
-              scaffoldBackgroundColor: _colores[appState.currentPage],
-              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-                selectedItemColor: Color.fromARGB(255, 0, 0, 0),
-                unselectedItemColor: Color.fromARGB(255, 52, 94, 27),
-              ),
+    return Consumer<MyAppState>(
+      builder: (context, appState, _) {
+        return MaterialApp(
+          theme: ThemeData(
+            scaffoldBackgroundColor: _colores[appState.currentPage],
+            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+              selectedItemColor: Color.fromARGB(255, 0, 0, 0),
+              unselectedItemColor: Color.fromARGB(255, 52, 94, 27),
             ),
-            home: HomePage(),
-          );
-        },
-      ),
+          ),
+          home: HomePage(),
+        );
+      },
     );
   }
 }
@@ -114,13 +116,7 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
-            body: Row(
-              children: [
-                Expanded(
-                  child: _widgetOptions.elementAt(appState.currentPage),
-                ),
-              ],
-            ),
+            body: _widgetOptions.elementAt(appState.currentPage),
             endDrawer: NavDrawer(),
           ),
           desktopBody: Scaffold(
@@ -142,13 +138,7 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
-            body: Row(
-              children: [
-                Expanded(
-                  child: _widgetOptions.elementAt(appState.currentPage),
-                ),
-              ],
-            ),
+            body: _widgetOptions.elementAt(appState.currentPage),
             endDrawer: NavDrawer(),
           ),
         );
