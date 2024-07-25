@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class reelsScreen extends StatelessWidget {
-  const reelsScreen({Key? key}) : super(key: key);
+class ReelsScreen extends StatelessWidget {
+  const ReelsScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

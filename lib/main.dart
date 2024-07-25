@@ -57,11 +57,11 @@ class MyApp extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
   static List<Widget> _widgetOptions = <Widget>[
-    feedScreen(),
-    reelsScreen(),
-    searchsScreen(),
-    favScreen(),
-    profileScreen(),
+    FeedScreen(),
+    ReelsScreen(),
+    SearchsScreen(),
+    FavScreen(),
+    ProfileScreen(),
   ];
 
   @override

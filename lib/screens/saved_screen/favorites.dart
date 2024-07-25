@@ -3,8 +3,8 @@ import 'package:proapp/main.dart';
 import 'package:provider/provider.dart';
 import 'package:proapp/screens/saved_screen/widgets/posts_fav.dart';
 
-class favScreen extends StatelessWidget {
-  const favScreen({Key? key}) : super(key: key);
+class FavScreen extends StatelessWidget {
+  const FavScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
