@@ -55,7 +55,7 @@ class SavedCard extends StatelessWidget {
                 topRight: Radius.circular(5),
               ),
               child: Image.asset(
-                home.imagePath,
+                home.imagePaths.first,
                 fit: BoxFit.cover,
                 // cómo se ajusta la imagen al contenedor, con cover, a todo el área del container
                 width: double.infinity, // así ocupa todo el ancho disponible

@@ -60,7 +60,7 @@ class BigCard extends StatelessWidget {
                 topRight: Radius.circular(40),
               ),
               child: Image.asset(
-                home.imagePath,
+                home.imagePaths.first,
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: 300,
@@ -204,7 +204,7 @@ class BigCard extends StatelessWidget {
                 topRight: Radius.circular(40),
               ),
               child: Image.asset(
-                home.imagePath,
+                home.imagePaths.first,
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: 300,
@@ -344,7 +344,7 @@ class BigCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.asset(
-                      home.imagePath,
+                      home.imagePaths.first,
                       fit: BoxFit.cover,
                       width: MediaQuery.of(context).size.width * 0.2,
                       height: MediaQuery.of(context).size.height * 0.3,

@@ -152,7 +152,14 @@ class MyAppState extends ChangeNotifier {
 
   final List<Home> homes = [
     Home(
-      imagePath: "assets/casa1.png",
+      imagePaths: [
+        "assets/casa1.png",
+        "assets/casa2.png",
+        "assets/casa3.png",
+        "assets/casa4.png",
+        "assets/casa5.png",
+        "assets/casa6.png"
+      ],
       title: "Casa en el Campo",
       description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer semper semper varius. Quisque lobortis odio gravida metus semper, at placerat urna sodales. Duis dapibus risus eget augue malesuada bibendum. Ut posuere nunc et leo egestas, ut accumsan purus iaculis. Morbi cursus sollicitudin tempus. Vestibulum sed sapien laoreet, finibus augue eu, pellentesque augue. Fusce et nibh consequat lectus ultricies rutrum. Maecenas ornare nec dolor at pharetra. Suspendisse imperdiet sit amet eros ac aliquam. Nullam vel dolor ut odio egestas maximus. Quisque efficitur mauris massa, ac pulvinar lectus accumsan non. Nulla faucibus sem quis molestie mollis. In molestie elit quis vehicula interdum. ",

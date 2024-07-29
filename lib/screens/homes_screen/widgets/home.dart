@@ -28,10 +28,10 @@ class HomeDetails extends StatelessWidget {
                 height: 400,
                 color: Colors.deepPurple[400],
                 child: Image.asset(
-                  home.imagePath,
+                  home.imagePaths.first,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  errorBuilder: (context, error, StackTrace) {
+                  errorBuilder: (context, error, stackTrace) {
                     return Center(
                         child: Text(
                       "Error al cargar la imagen",
@@ -45,76 +45,7 @@ class HomeDetails extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView(
-                    children: [
-                      Text(
-                        "${home.title} en ${home.street}",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "${home.district}, ${home.city}",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        home.price,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        home.description,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "${home.floor} ª planta ${home.elevator} ",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "${home.rooms} habitaciones y ${home.wc} baños",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              // Acción para el primer botón
-                            },
-                            child: Text('Contactar'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              // Acción para el segundo botón
-                            },
-                            child: Text('Ver en Mapa'),
-                          ),
-                        ],
-                      ),
-                    ],
+                    children: _buildDetails(home),
                   ),
                 ),
               )
@@ -134,10 +65,10 @@ class HomeDetails extends StatelessWidget {
                 height: 400,
                 color: Colors.deepPurple[400],
                 child: Image.asset(
-                  home.imagePath,
+                  home.imagePaths.first,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  errorBuilder: (context, error, StackTrace) {
+                  errorBuilder: (context, error, stackTrace) {
                     return Center(
                         child: Text(
                       "Error al cargar la imagen",
@@ -151,76 +82,7 @@ class HomeDetails extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView(
-                    children: [
-                      Text(
-                        "${home.title} en ${home.street}",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "${home.district}, ${home.city}",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        home.price,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        home.description,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "${home.floor} ª planta ${home.elevator} ",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "${home.rooms} habitaciones y ${home.wc} baños",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              // Acción para el primer botón
-                            },
-                            child: Text('Contactar'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              // Acción para el segundo botón
-                            },
-                            child: Text('Ver en Mapa'),
-                          ),
-                        ],
-                      ),
-                    ],
+                    children: _buildDetails(home),
                   ),
                 ),
               )
@@ -231,112 +93,130 @@ class HomeDetails extends StatelessWidget {
           extendBodyBehindAppBar: true,
           backgroundColor: Colors.deepPurple[200],
           appBar: AppBar(),
-          body: Row(
+          body: Column(
             children: [
-              Container(
-                height: 400,
-                color: Colors.deepPurple[400],
-                child: Image.asset(
-                  home.imagePath,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  errorBuilder: (context, error, StackTrace) {
-                    return Center(
-                        child: Text(
-                      "Error al cargar la imagen",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black),
-                    ));
-                  },
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 8.0,
+                            mainAxisSpacing: 8.0,
+                            childAspectRatio: 1.5, // Adjust this as needed
+                          ),
+                          itemCount: 6, // Number of images to display
+                          itemBuilder: (context, index) {
+                            return Image.asset(
+                              home.imagePaths[index],
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Center(
+                                  child: Text(
+                                    "Error al cargar la imagen",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView(
-                    children: [
-                      Text(
-                        "${home.title} en ${home.street}",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "${home.district}, ${home.city}",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        home.price,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        home.description,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "${home.floor} ª planta ${home.elevator} ",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "${home.rooms} habitaciones y ${home.wc} baños",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              // Acción para el primer botón
-                            },
-                            child: Text('Contactar'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              // Acción para el segundo botón
-                            },
-                            child: Text('Ver en Mapa'),
-                          ),
-                        ],
-                      ),
-                    ],
+                    children: _buildDetails(home),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
       );
     });
   }
+
+  List<Widget> _buildDetails(Home home) {
+    return [
+      Text(
+        "${home.title} en ${home.street}",
+        style: TextStyle(
+            color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+      ),
+      SizedBox(height: 8),
+      Text(
+        "${home.district}, ${home.city}",
+        style: TextStyle(
+            color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+      ),
+      SizedBox(height: 8),
+      Text(
+        home.price,
+        style: TextStyle(
+            color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+      ),
+      SizedBox(height: 8),
+      Text(
+        home.description,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 14,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+      SizedBox(height: 8),
+      Text(
+        "${home.floor} ª planta ${home.elevator} ",
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 14,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+      SizedBox(height: 8),
+      Text(
+        "${home.rooms} habitaciones y ${home.wc} baños",
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 14,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+      SizedBox(height: 8),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              // Acción para el primer botón
+            },
+            child: Text('Contactar'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Acción para el segundo botón
+            },
+            child: Text('Ver en Mapa'),
+          ),
+        ],
+      ),
+    ];
+  }
 }
 
 class Home {
-  final String imagePath;
+  final List<String> imagePaths;
   final String title;
   final String price;
   final String street;
@@ -350,7 +230,7 @@ class Home {
   final String area;
 
   Home({
-    required this.imagePath,
+    required this.imagePaths,
     required this.title,
     required this.price,
     required this.street,
