@@ -26,13 +26,6 @@ class MyApp extends StatelessWidget {
 
   // colores para diferenciar los fondos de las pantallas
   // solo para localizar, a eliminar
-  final List<Color> _colores = [
-    Color.fromARGB(255, 206, 149, 149),
-    Color.fromARGB(255, 231, 221, 133),
-    Color.fromARGB(255, 144, 249, 158),
-    Color.fromARGB(255, 123, 200, 219),
-    Color.fromARGB(255, 213, 130, 224),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +128,7 @@ class HomePage extends StatelessWidget {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(5.0),
                       side: BorderSide(
                         color: Color.fromARGB(255, 139, 139, 139),
                       ),
@@ -155,7 +148,7 @@ class HomePage extends StatelessWidget {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(5.0),
                       side: BorderSide(
                         color: Color.fromARGB(255, 139, 139, 139),
                       ),
@@ -171,7 +164,15 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 8.0)
+                SizedBox(width: 8.0),
+                IconButton(
+                  icon: Icon(
+                      appState.isDarkMode ? Icons.dark_mode : Icons.light_mode),
+                  onPressed: () {
+                    appState.toggleTheme();
+                  },
+                ),
+                SizedBox(width: 8.0),
               ],
             ),
             body: _widgetOptions.elementAt(appState.currentPage),

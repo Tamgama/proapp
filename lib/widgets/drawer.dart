@@ -6,32 +6,18 @@ class NavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = Provider.of<MyAppState>(context);
+    bool isDarkMode = appState.isDarkMode;
 
     return Drawer(
       child: ListView(
         children: <Widget>[
-          DrawerHeader(
-            padding: EdgeInsets.zero,
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: SizedBox(
-              height: 10,
-              width: 10,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Menu',
-                    style: TextStyle(
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          ListTile(
+            trailing:
+                Icon(appState.isDarkMode ? Icons.dark_mode : Icons.light_mode),
+            onTap: () {
+              appState.toggleTheme();
+              Navigator.pop(context);
+            },
           ),
           ListTile(
             leading: Icon(Icons.home),
@@ -75,21 +61,6 @@ class NavDrawer extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ScaffoldDrawer extends StatelessWidget {
-  final Widget child;
-  final MyAppState appState;
-
-  const ScaffoldDrawer({required this.child, required this.appState});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      endDrawer: NavDrawer(),
-      body: child,
     );
   }
 }
