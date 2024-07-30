@@ -104,7 +104,7 @@ class HomeDetails extends StatelessWidget {
                         child: GridView.builder(
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
+                            crossAxisCount: 4,
                             crossAxisSpacing: 8.0,
                             mainAxisSpacing: 8.0,
                             childAspectRatio: 1.5, // Adjust this as needed

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proapp/widgets/layout.dart';
 import 'package:proapp/widgets/drawer.dart';
+import 'package:proapp/widgets/themes.dart';
 import 'package:proapp/screens/feed_screen/feed.dart';
 import 'package:proapp/screens/profile_screen/profile.dart';
 import 'package:proapp/screens/reels_screen/videos.dart';
@@ -41,13 +42,7 @@ class MyApp extends StatelessWidget {
     return Consumer<MyAppState>(
       builder: (context, appState, _) {
         return MaterialApp(
-          theme: ThemeData(
-            scaffoldBackgroundColor: _colores[appState.currentPage],
-            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-              selectedItemColor: Color.fromARGB(255, 0, 0, 0),
-              unselectedItemColor: Color.fromARGB(255, 52, 94, 27),
-            ),
-          ),
+          theme: appState.isDarkMode ? darkTheme : lightTheme,
           home: HomePage(),
         );
       },
@@ -77,6 +72,15 @@ class HomePage extends StatelessWidget {
                 },
                 child: Text("Promurcia"),
               ),
+              actions: [
+                IconButton(
+                  icon: Icon(
+                      appState.isDarkMode ? Icons.dark_mode : Icons.light_mode),
+                  onPressed: () {
+                    appState.toggleTheme();
+                  },
+                ),
+              ],
             ),
             body: _widgetOptions.elementAt(appState.currentPage),
             bottomNavigationBar: BottomNavigationBar(
@@ -128,18 +132,49 @@ class HomePage extends StatelessWidget {
                 child: const Text("Promurcia"),
               ),
               actions: [
-                Builder(
-                  builder: (context) => IconButton(
-                    icon: Icon(Icons.menu),
-                    onPressed: () {
-                      Scaffold.of(context).openEndDrawer();
-                    },
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      side: BorderSide(
+                        color: Color.fromARGB(255, 139, 139, 139),
+                      ),
+                    ),
+                    backgroundColor: const Color.fromARGB(255, 160, 160, 160),
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    "Vídeos 360",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
+                SizedBox(width: 8.0),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      side: BorderSide(
+                        color: Color.fromARGB(255, 139, 139, 139),
+                      ),
+                    ),
+                    backgroundColor: const Color.fromARGB(255, 160, 160, 160),
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    "Perfil",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 8.0)
               ],
             ),
             body: _widgetOptions.elementAt(appState.currentPage),
-            endDrawer: NavDrawer(),
           ),
         );
       },
@@ -191,6 +226,15 @@ class MyAppState extends ChangeNotifier {
   void setPage(int index) {
     // cambia la página actual y notifica cambios
     currentPage = index;
+    notifyListeners();
+  }
+
+  bool _isDarkMode = false;
+
+  bool get isDarkMode => _isDarkMode;
+
+  void toggleTheme() {
+    _isDarkMode = !_isDarkMode;
     notifyListeners();
   }
 }
