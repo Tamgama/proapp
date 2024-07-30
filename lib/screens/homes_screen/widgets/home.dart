@@ -16,15 +16,17 @@ class HomeDetails extends StatelessWidget {
     return Consumer<MyAppState>(builder: (context, appState, _) {
       return ResponsiveLayout(
         mobileBody: Scaffold(
-          extendBodyBehindAppBar: true,
+          extendBodyBehindAppBar:
+              false, // No extiende el cuerpo detrás de la AppBar
           backgroundColor: Colors.deepPurple[200],
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
+            title: Text('Detalles'),
           ),
           body: Column(
             children: [
               Container(
+                margin: EdgeInsets.only(
+                    top: kToolbarHeight), // Margen superior para la AppBar
                 height: 400,
                 color: Colors.deepPurple[400],
                 child: Image.asset(
@@ -33,11 +35,12 @@ class HomeDetails extends StatelessWidget {
                   width: double.infinity,
                   errorBuilder: (context, error, stackTrace) {
                     return Center(
-                        child: Text(
-                      "Error al cargar la imagen",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black),
-                    ));
+                      child: Text(
+                        "Error al cargar la imagen",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                    );
                   },
                 ),
               ),
@@ -48,34 +51,44 @@ class HomeDetails extends StatelessWidget {
                     children: _buildDetails(home),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
         tabletBody: Scaffold(
-          extendBodyBehindAppBar: true,
+          extendBodyBehindAppBar:
+              false, // No extiende el cuerpo detrás de la AppBar
           backgroundColor: Colors.deepPurple[200],
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
+            title: Text('Detalles'),
           ),
           body: Column(
             children: [
               Container(
+                margin: EdgeInsets.only(
+                    top: kToolbarHeight), // Margen superior para la AppBar
                 height: 400,
-                color: Colors.deepPurple[400],
-                child: Image.asset(
-                  home.imagePaths.first,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Center(
-                        child: Text(
-                      "Error al cargar la imagen",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black),
-                    ));
-                  },
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: 800, // Tamaño máximo de la imagen en tablet
+                    ),
+                    child: Image.asset(
+                      home.imagePaths.first,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Center(
+                          child: Text(
+                            "Error al cargar la imagen",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
               ),
               Expanded(
@@ -85,62 +98,69 @@ class HomeDetails extends StatelessWidget {
                     children: _buildDetails(home),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
         desktopBody: Scaffold(
-          extendBodyBehindAppBar: true,
+          extendBodyBehindAppBar:
+              false, // No extiende el cuerpo detrás de la AppBar
           backgroundColor: Colors.deepPurple[200],
-          appBar: AppBar(),
-          body: Column(
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
-                            crossAxisSpacing: 8.0,
-                            mainAxisSpacing: 8.0,
-                            childAspectRatio: 1.5, // Adjust this as needed
-                          ),
-                          itemCount: 6, // Number of images to display
-                          itemBuilder: (context, index) {
-                            return Image.asset(
-                              home.imagePaths[index],
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Center(
-                                  child: Text(
-                                    "Error al cargar la imagen",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                );
-                              },
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            title: Text('Detalles del Inmueble',
+                style: TextStyle(color: Colors.white)),
+            centerTitle: true,
+          ),
+          body: Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: 1200, // Limita el ancho del contenido
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 400,
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 8.0,
+                        mainAxisSpacing: 8.0,
+                        childAspectRatio:
+                            1.5, // Ajusta esto según sea necesario
+                      ),
+                      itemCount: home.imagePaths.length,
+                      itemBuilder: (context, index) {
+                        return Image.asset(
+                          home.imagePaths[index],
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Center(
+                              child: Text(
+                                "Error al cargar la imagen",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ),
                             );
                           },
-                        ),
-                      ),
+                        );
+                      },
                     ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView(
-                    children: _buildDetails(home),
                   ),
-                ),
+                  SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: _buildDetails(home),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       );
