@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class FilterColumn extends StatefulWidget {
+class FilterPanel extends StatefulWidget {
   final Function(Map<String, dynamic>) onFilterChanged;
 
-  FilterColumn({required this.onFilterChanged});
+  FilterPanel({required this.onFilterChanged});
 
   @override
-  _FilterColumnState createState() => _FilterColumnState();
+  _FilterPanelState createState() => _FilterPanelState();
 }
 
-class _FilterColumnState extends State<FilterColumn> {
+class _FilterPanelState extends State<FilterPanel> {
   double _minPrice = 0;
   double _maxPrice = 1000000;
   String _selectedDistrict = '';
@@ -34,11 +34,7 @@ class _FilterColumnState extends State<FilterColumn> {
     'Joven Futura',
     'Vistalegre'
   ];
-  final List<String> _propertyTypes = [
-    'Apartamento',
-    'Casa',
-    'Dúplex',
-  ];
+  final List<String> _propertyTypes = ['Apartamento', 'Casa', 'Dúplex'];
   final List<String> _conditions = ['Nuevo', 'A reformar', 'Bueno'];
   final List<String> _equipment = [
     'Indiferente',
@@ -52,7 +48,7 @@ class _FilterColumnState extends State<FilterColumn> {
     'Terraza',
     'Trastero',
     'Accesibilidad',
-    'Aire acondicionado',
+    'Aire acondicionado'
   ];
 
   @override
@@ -117,7 +113,7 @@ class _FilterColumnState extends State<FilterColumn> {
           _buildDropdown('Equipamiento', _equipment, _selectedEquipment,
               (String? value) {
             setState(() {
-              _selectedCondition = value!;
+              _selectedEquipment = value!;
               _onFilterChanged();
             });
           }),
@@ -150,8 +146,24 @@ class _FilterColumnState extends State<FilterColumn> {
             });
           }),
           SizedBox(height: 8),
+          _buildCheckbox('Acepta mascotas', _acceptPets, (bool? value) {
+            setState(() {
+              _hasElevator = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
           _buildDivider(),
           _buildCheckboxList(),
+          SizedBox(height: 16),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                _onFilterChanged();
+              },
+              child: Text('Aplicar filtros'),
+            ),
+          ),
         ],
       ),
     );
@@ -254,13 +266,26 @@ class _FilterColumnState extends State<FilterColumn> {
   Widget _buildCheckboxList() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: _features
-          .map((feature) => _buildCheckbox(
-                feature,
-                _selectedFeatures.contains(feature),
-                (bool? value) {
+      children: [
+        Text(
+          'Características adicionales',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 8),
+        ..._features.map((feature) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(feature),
+              Checkbox(
+                value: _selectedFeatures.contains(feature),
+                onChanged: (bool? checked) {
                   setState(() {
-                    if (value!) {
+                    if (checked == true) {
                       _selectedFeatures.add(feature);
                     } else {
                       _selectedFeatures.remove(feature);
@@ -268,32 +293,33 @@ class _FilterColumnState extends State<FilterColumn> {
                     _onFilterChanged();
                   });
                 },
-              ))
-          .toList(),
-    );
-  }
-
-  Widget _buildDivider() {
-    return Divider(
-      color: Colors.black54,
-      thickness: 1,
-      height: 32,
+              ),
+            ],
+          );
+        }).toList(),
+      ],
     );
   }
 
   void _onFilterChanged() {
     widget.onFilterChanged({
-      'minPrice': _minPrice,
-      'maxPrice': _maxPrice,
+      'priceRange': [_minPrice, _maxPrice],
       'district': _selectedDistrict,
       'neighborhood': _selectedNeighborhood,
       'rooms': _selectedRooms,
       'bathrooms': _selectedBathrooms,
-      'acceptPets': _acceptPets,
-      'hasElevator': _hasElevator,
+      'elevator': _hasElevator,
+      'features': _selectedFeatures,
       'propertyType': _selectedPropertyType,
       'condition': _selectedCondition,
-      'features': _selectedFeatures,
+      'equipment': _selectedEquipment,
     });
+  }
+
+  Widget _buildDivider() {
+    return Divider(
+      color: Colors.black54,
+      height: 20,
+    );
   }
 }

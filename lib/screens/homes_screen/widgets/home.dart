@@ -13,35 +13,36 @@ class HomeDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     return Consumer<MyAppState>(builder: (context, appState, _) {
       return ResponsiveLayout(
         mobileBody: Scaffold(
-          extendBodyBehindAppBar:
-              false, // No extiende el cuerpo detrás de la AppBar
-          backgroundColor: Colors.deepPurple[200],
+          extendBodyBehindAppBar: false,
           appBar: AppBar(
-            title: Text('Detalles'),
+            title: Text(home.title),
           ),
           body: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(
-                    top: kToolbarHeight), // Margen superior para la AppBar
                 height: 400,
-                color: Colors.deepPurple[400],
-                child: Image.asset(
-                  home.imagePaths.first,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Center(
-                      child: Text(
-                        "Error al cargar la imagen",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.black),
-                      ),
-                    );
-                  },
+                color: theme.primaryColor,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Image.asset(
+                    home.imagePaths.first,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Center(
+                        child: Text(
+                          "Error al cargar la imagen",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
               Expanded(
@@ -56,37 +57,35 @@ class HomeDetails extends StatelessWidget {
           ),
         ),
         tabletBody: Scaffold(
-          extendBodyBehindAppBar:
-              false, // No extiende el cuerpo detrás de la AppBar
-          backgroundColor: Colors.deepPurple[200],
-          appBar: AppBar(
-            title: Text('Detalles'),
-          ),
+          extendBodyBehindAppBar: false,
+          backgroundColor: theme.scaffoldBackgroundColor,
+          appBar: AppBar(),
           body: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(
-                    top: kToolbarHeight), // Margen superior para la AppBar
                 height: 400,
                 child: Center(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
-                      maxWidth: 800, // Tamaño máximo de la imagen en tablet
+                      maxWidth: 800,
                     ),
-                    child: Image.asset(
-                      home.imagePaths.first,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Center(
-                          child: Text(
-                            "Error al cargar la imagen",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        );
-                      },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Image.asset(
+                        home.imagePaths.first,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Center(
+                            child: Text(
+                              "Error al cargar la imagen",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
@@ -103,51 +102,46 @@ class HomeDetails extends StatelessWidget {
           ),
         ),
         desktopBody: Scaffold(
-          extendBodyBehindAppBar:
-              false, // No extiende el cuerpo detrás de la AppBar
-          backgroundColor: Colors.deepPurple[200],
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            title: Text('Detalles del Inmueble',
-                style: TextStyle(color: Colors.white)),
-            centerTitle: true,
-          ),
+          extendBodyBehindAppBar: false,
+          backgroundColor: theme.scaffoldBackgroundColor,
+          appBar: AppBar(),
           body: Center(
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                maxWidth: 1200, // Limita el ancho del contenido
+                maxWidth: 1500,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     height: 400,
-                    child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 8.0,
-                        mainAxisSpacing: 8.0,
-                        childAspectRatio:
-                            1.5, // Ajusta esto según sea necesario
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 8.0,
+                          mainAxisSpacing: 8.0,
+                          childAspectRatio: 1.5,
+                        ),
+                        itemCount: home.imagePaths.length,
+                        itemBuilder: (context, index) {
+                          return Image.asset(
+                            home.imagePaths[index],
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Center(
+                                child: Text(
+                                  "Error al cargar la imagen",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
+                              );
+                            },
+                          );
+                        },
                       ),
-                      itemCount: home.imagePaths.length,
-                      itemBuilder: (context, index) {
-                        return Image.asset(
-                          home.imagePaths[index],
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Center(
-                              child: Text(
-                                "Error al cargar la imagen",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
-                            );
-                          },
-                        );
-                      },
                     ),
                   ),
                   SizedBox(height: 16),

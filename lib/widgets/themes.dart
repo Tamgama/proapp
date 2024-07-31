@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   primaryColor: Color.fromRGBO(131, 48, 54, 0.705),
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: Color.fromARGB(255, 170, 170, 170),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     selectedItemColor: Colors.black,
     unselectedItemColor: Color.fromARGB(255, 117, 28, 28),
   ),
   appBarTheme: const AppBarTheme(
     backgroundColor: Color.fromRGBO(131, 48, 54, 0.623),
-    iconTheme: IconThemeData(color: Colors.white),
-    titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
+    iconTheme: IconThemeData(color: Color.fromARGB(255, 170, 170, 170)),
+    titleTextStyle:
+        TextStyle(color: Color.fromARGB(255, 170, 170, 170), fontSize: 20),
   ),
 );
 

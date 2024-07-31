@@ -24,12 +24,8 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key}); //constructor
 
-  // colores para diferenciar los fondos de las pantallas
-  // solo para localizar, a eliminar
-
   @override
   Widget build(BuildContext context) {
-    // contructor
     // devuelve un MaterialApp con tema y título definidos
     // y HomePage como página inicial
     return Consumer<MyAppState>(
@@ -186,7 +182,7 @@ class HomePage extends StatelessWidget {
 class MyAppState extends ChangeNotifier {
   // subclase
 
-  final List<Home> homes = [
+  final List<Home> _allHomes = [
     Home(
       imagePaths: [
         "assets/casa1.png",
@@ -214,8 +210,38 @@ class MyAppState extends ChangeNotifier {
   final List<Home> favorites = [];
   int currentPage = 0;
 
+  List<Home> _filteredHomes = [];
+
+  List<Home> get homes => _filteredHomes.isEmpty ? _allHomes : _filteredHomes;
+
+  MyAppState() {
+    _filteredHomes = _allHomes;
+  }
+
+  void filterHomes(String city, String priceRange) {
+    List<Home> filtered = _allHomes;
+    if (city.isNotEmpty) {
+      filtered = filtered.where((home) => home.city == city).toList();
+    }
+    if (priceRange.isNotEmpty) {
+      filtered = filtered.where((home) {
+        if (priceRange == '< 100,000€') {
+          return int.parse(home.price.replaceAll(RegExp(r'[^0-9]'), '')) <
+              100000;
+        } else if (priceRange == '100,000€ - 200,000€') {
+          int price = int.parse(home.price.replaceAll(RegExp(r'[^0-9]'), ''));
+          return price >= 100000 && price <= 200000;
+        } else {
+          return int.parse(home.price.replaceAll(RegExp(r'[^0-9]'), '')) >
+              200000;
+        }
+      }).toList();
+    }
+    _filteredHomes = filtered;
+    notifyListeners();
+  }
+
   void toggleFavorite(Home home) {
-    // para agregar y quitar favs y notificar los cambios
     if (favorites.contains(home)) {
       favorites.remove(home);
     } else {
@@ -225,7 +251,6 @@ class MyAppState extends ChangeNotifier {
   }
 
   void setPage(int index) {
-    // cambia la página actual y notifica cambios
     currentPage = index;
     notifyListeners();
   }
