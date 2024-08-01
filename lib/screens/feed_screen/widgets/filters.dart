@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proapp/widgets/layout.dart';
 
 class FilterPanel extends StatefulWidget {
   final Function(Map<String, dynamic>) onFilterChanged;
@@ -53,19 +54,227 @@ class _FilterPanelState extends State<FilterPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 10,
-            offset: Offset(2, 2),
+    return ResponsiveLayout(
+      mobileBody: _buildMobileBody(context),
+      tabletBody: _buildTabletBody(context),
+      desktopBody: _buildDesktopBody(context),
+    );
+  }
+
+  Widget _buildMobileBody(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.all(16.0),
+        children: [
+          _buildSectionTitle('Precio'),
+          _buildPriceRange(),
+          _buildDivider(),
+          _buildSectionTitle('Localización'),
+          SizedBox(height: 8.0),
+          _buildDropdown('Distrito', _districts, _selectedDistrict,
+              (String? value) {
+            setState(() {
+              _selectedDistrict = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildDropdown('Barrio', _neighborhoods, _selectedNeighborhood,
+              (String? value) {
+            setState(() {
+              _selectedNeighborhood = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildDivider(),
+          _buildSectionTitle('Vivienda'),
+          SizedBox(height: 8),
+          _buildDropdown(
+              'Tipo de vivienda', _propertyTypes, _selectedPropertyType,
+              (String? value) {
+            setState(() {
+              _selectedPropertyType = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildDropdown('Estado', _conditions, _selectedCondition,
+              (String? value) {
+            setState(() {
+              _selectedCondition = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildDropdown('Equipamiento', _equipment, _selectedEquipment,
+              (String? value) {
+            setState(() {
+              _selectedEquipment = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildDivider(),
+          _buildDropdown(
+              'Habitaciones',
+              List.generate(10, (index) => (index + 1).toString()),
+              _selectedRooms.toString(), (String? value) {
+            setState(() {
+              _selectedRooms = int.parse(value!);
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildDropdown(
+              'Baños',
+              List.generate(5, (index) => (index + 1).toString()),
+              _selectedBathrooms.toString(), (String? value) {
+            setState(() {
+              _selectedBathrooms = int.parse(value!);
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildCheckbox('Ascensor', _hasElevator, (bool? value) {
+            setState(() {
+              _hasElevator = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildCheckbox('Acepta mascotas', _acceptPets, (bool? value) {
+            setState(() {
+              _acceptPets = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildDivider(),
+          _buildCheckboxList(),
+          SizedBox(height: 16),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                _onFilterChanged();
+              },
+              child: Text('Aplicar filtros'),
+            ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildTabletBody(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.all(16.0),
+        children: [
+          _buildSectionTitle('Precio'),
+          _buildPriceRange(),
+          _buildDivider(),
+          _buildSectionTitle('Localización'),
+          SizedBox(height: 8.0),
+          _buildDropdown('Distrito', _districts, _selectedDistrict,
+              (String? value) {
+            setState(() {
+              _selectedDistrict = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildDropdown('Barrio', _neighborhoods, _selectedNeighborhood,
+              (String? value) {
+            setState(() {
+              _selectedNeighborhood = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildDivider(),
+          _buildSectionTitle('Vivienda'),
+          SizedBox(height: 8),
+          _buildDropdown(
+              'Tipo de vivienda', _propertyTypes, _selectedPropertyType,
+              (String? value) {
+            setState(() {
+              _selectedPropertyType = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildDropdown('Estado', _conditions, _selectedCondition,
+              (String? value) {
+            setState(() {
+              _selectedCondition = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildDropdown('Equipamiento', _equipment, _selectedEquipment,
+              (String? value) {
+            setState(() {
+              _selectedEquipment = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildDivider(),
+          _buildDropdown(
+              'Habitaciones',
+              List.generate(10, (index) => (index + 1).toString()),
+              _selectedRooms.toString(), (String? value) {
+            setState(() {
+              _selectedRooms = int.parse(value!);
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildDropdown(
+              'Baños',
+              List.generate(5, (index) => (index + 1).toString()),
+              _selectedBathrooms.toString(), (String? value) {
+            setState(() {
+              _selectedBathrooms = int.parse(value!);
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildCheckbox('Ascensor', _hasElevator, (bool? value) {
+            setState(() {
+              _hasElevator = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildCheckbox('Acepta mascotas', _acceptPets, (bool? value) {
+            setState(() {
+              _acceptPets = value!;
+              _onFilterChanged();
+            });
+          }),
+          SizedBox(height: 8),
+          _buildDivider(),
+          _buildCheckboxList(),
+          SizedBox(height: 16),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                _onFilterChanged();
+              },
+              child: Text('Aplicar filtros'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDesktopBody(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      color: Colors.grey[200],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -148,7 +357,7 @@ class _FilterPanelState extends State<FilterPanel> {
           SizedBox(height: 8),
           _buildCheckbox('Acepta mascotas', _acceptPets, (bool? value) {
             setState(() {
-              _hasElevator = value!;
+              _acceptPets = value!;
               _onFilterChanged();
             });
           }),
@@ -173,7 +382,6 @@ class _FilterPanelState extends State<FilterPanel> {
     return Text(
       title,
       style: TextStyle(
-        color: Colors.black,
         fontSize: 18,
         fontWeight: FontWeight.bold,
       ),
@@ -182,23 +390,15 @@ class _FilterPanelState extends State<FilterPanel> {
 
   Widget _buildPriceRange() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('${_minPrice.toStringAsFixed(0)}€'),
-            Text('${_maxPrice.toStringAsFixed(0)}€'),
-          ],
-        ),
         RangeSlider(
           values: RangeValues(_minPrice, _maxPrice),
           min: 0,
           max: 1000000,
           divisions: 100,
           labels: RangeLabels(
-            _minPrice.toStringAsFixed(0),
-            _maxPrice.toStringAsFixed(0),
+            '\$${_minPrice.toInt()}',
+            '\$${_maxPrice.toInt()}',
           ),
           onChanged: (RangeValues values) {
             setState(() {
@@ -212,28 +412,20 @@ class _FilterPanelState extends State<FilterPanel> {
     );
   }
 
-  Widget _buildDropdown(String title, List<String> options, String value,
+  Widget _buildDropdown(String title, List<String> items, String selectedItem,
       ValueChanged<String?> onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(height: 8),
+        Text(title),
         DropdownButton<String>(
-          value: value.isEmpty ? null : value,
-          hint: Text('Seleccione $title'),
           isExpanded: true,
-          items: options.map((String option) {
+          value: selectedItem.isNotEmpty ? selectedItem : null,
+          hint: Text('Selecciona $title'),
+          items: items.map((String item) {
             return DropdownMenuItem<String>(
-              value: option,
-              child: Text(option),
+              value: item,
+              child: Text(item),
             );
           }).toList(),
           onChanged: onChanged,
@@ -245,20 +437,12 @@ class _FilterPanelState extends State<FilterPanel> {
   Widget _buildCheckbox(
       String title, bool value, ValueChanged<bool?> onChanged) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
         Checkbox(
           value: value,
           onChanged: onChanged,
         ),
+        Text(title),
       ],
     );
   }
@@ -266,60 +450,40 @@ class _FilterPanelState extends State<FilterPanel> {
   Widget _buildCheckboxList() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Características adicionales',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(height: 8),
-        ..._features.map((feature) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(feature),
-              Checkbox(
-                value: _selectedFeatures.contains(feature),
-                onChanged: (bool? checked) {
-                  setState(() {
-                    if (checked == true) {
-                      _selectedFeatures.add(feature);
-                    } else {
-                      _selectedFeatures.remove(feature);
-                    }
-                    _onFilterChanged();
-                  });
-                },
-              ),
-            ],
-          );
-        }).toList(),
-      ],
+      children: _features.map((feature) {
+        return _buildCheckbox(feature, _selectedFeatures.contains(feature),
+            (bool? checked) {
+          setState(() {
+            if (checked == true) {
+              _selectedFeatures.add(feature);
+            } else {
+              _selectedFeatures.remove(feature);
+            }
+            _onFilterChanged();
+          });
+        });
+      }).toList(),
     );
+  }
+
+  Widget _buildDivider() {
+    return Divider(height: 24, color: Colors.black.withOpacity(0.5));
   }
 
   void _onFilterChanged() {
     widget.onFilterChanged({
-      'priceRange': [_minPrice, _maxPrice],
+      'minPrice': _minPrice,
+      'maxPrice': _maxPrice,
       'district': _selectedDistrict,
       'neighborhood': _selectedNeighborhood,
-      'rooms': _selectedRooms,
-      'bathrooms': _selectedBathrooms,
-      'elevator': _hasElevator,
-      'features': _selectedFeatures,
       'propertyType': _selectedPropertyType,
       'condition': _selectedCondition,
       'equipment': _selectedEquipment,
+      'rooms': _selectedRooms,
+      'bathrooms': _selectedBathrooms,
+      'hasElevator': _hasElevator,
+      'acceptPets': _acceptPets,
+      'features': _selectedFeatures,
     });
-  }
-
-  Widget _buildDivider() {
-    return Divider(
-      color: Colors.black54,
-      height: 20,
-    );
   }
 }

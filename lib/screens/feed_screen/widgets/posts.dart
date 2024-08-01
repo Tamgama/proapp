@@ -312,148 +312,161 @@ class BigCard extends StatelessWidget {
 
   Widget _buildDesktopBody(
       BuildContext context, MyAppState appState, bool isFav) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 5,
-          child: Container(
-            margin: EdgeInsets.all(16.0),
-            padding: EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(8.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  blurRadius: 10,
-                  offset: Offset(2, 2),
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: 1500,
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 5,
+              child: Container(
+                margin: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(8.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 10,
+                      offset: Offset(2, 2),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeDetails(home: home),
-                      ),
-                    );
-                  },
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
-                      home.imagePaths.first,
-                      fit: BoxFit.cover,
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Center(
-                          child: Text(
-                            'Error al cargar la imagen',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeDetails(home: home),
                           ),
                         );
                       },
-                    ),
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            home.title,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          IconButton(
-                            icon: Icon(
-                                isFav ? Icons.favorite : Icons.favorite_border),
-                            onPressed: () {
-                              appState.toggleFavorite(home);
-                            },
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "${home.street}, ${home.city}",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            home.price,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                side: BorderSide(
-                                  color: Color.fromARGB(255, 139, 139, 139),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                          home.imagePaths.first,
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Center(
+                              child: Text(
+                                'Error al cargar la imagen',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
                               ),
-                              backgroundColor:
-                                  const Color.fromARGB(255, 160, 160, 160),
-                            ),
-                            onPressed: () {},
-                            child: Text(
-                              "Pide cita",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 16),
-                      Text(
-                        home.description,
-                        style: TextStyle(
-                          color: Colors.black,
+                            );
+                          },
                         ),
                       ),
-                      SizedBox(height: 16),
-                    ],
+                    ),
+                    SizedBox(width: 16),
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                home.title,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              IconButton(
+                                icon: Icon(isFav
+                                    ? Icons.favorite
+                                    : Icons.favorite_border),
+                                onPressed: () {
+                                  appState.toggleFavorite(home);
+                                },
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            "${home.street}, ${home.city}",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                home.price,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    side: BorderSide(
+                                      color: Color.fromARGB(255, 139, 139, 139),
+                                    ),
+                                  ),
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 160, 160, 160),
+                                ),
+                                onPressed: () {},
+                                child: Text(
+                                  "Pide cita",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            home.description,
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Container(
+                height: 600, // Ajusta la altura del panel de filtros
+                child: SingleChildScrollView(
+                  child: FilterPanel(
+                    onFilterChanged: (filter) {
+                      // Implementar lógica de filtro aquí
+                      print('Filter changed: $filter');
+                    },
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
-        Expanded(
-          flex: 2,
-          child: FilterPanel(
-            onFilterChanged: (filter) {
-              // Implement filter logic here
-              print('Filter changed: $filter');
-            },
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
