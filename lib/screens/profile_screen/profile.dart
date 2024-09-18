@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:proapp/screens/profile_screen/widgets/editprofile.dart';
+=======
+import 'package:provider/provider.dart';
+import 'package:proapp/main.dart';
+import 'package:proapp/screens/registration/registration.dart';
+>>>>>>> e82424832573d06051b4e9703de76c4721b3c079
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
+<<<<<<< HEAD
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -41,11 +48,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+=======
+>>>>>>> e82424832573d06051b4e9703de76c4721b3c079
   @override
   Widget build(BuildContext context) {
+    final appState = Provider.of<MyAppState>(context);
+
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Perfil'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
+<<<<<<< HEAD
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -74,10 +89,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
             _buildDocumentsSection(),
           ],
         ),
+=======
+        child: appState.isProfileCreated
+            ? _buildUserProfile(appState)
+            : _buildProfileActions(context),
+>>>>>>> e82424832573d06051b4e9703de76c4721b3c079
       ),
     );
   }
 
+<<<<<<< HEAD
   // Botón para editar perfil (solo el texto en negrita).
   Widget _buildEditProfileButton(BuildContext context) {
     return TextButton(
@@ -137,10 +158,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   // Construir la sección de contacto.
   Widget _buildContactSection() {
+=======
+  Widget _buildProfileActions(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              _showRegistrationForm(context);
+            },
+            child: Text('Crear Perfil'),
+          ),
+          SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {
+              // Lógica para entrar al perfil existente
+              Provider.of<MyAppState>(context, listen: false).enterProfile();
+            },
+            child: Text('Entrar en el Perfil'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUserProfile(MyAppState appState) {
+    // Este es el código que ya tienes implementado para mostrar el perfil del usuario.
+    // Aquí puedes colocar la UI del perfil ya creada.
+>>>>>>> e82424832573d06051b4e9703de76c4721b3c079
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        CircleAvatar(
+          radius: 50,
+          backgroundImage: NetworkImage(appState.profileImageUrl),
+        ),
+        SizedBox(height: 16),
         Text(
+<<<<<<< HEAD
           'Contacto',
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
@@ -155,11 +211,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
           title: Text(_profileData['Correo electrónico']!.isNotEmpty
               ? _profileData['Correo electrónico']!
               : 'No proporcionado'),
+=======
+          appState.userName,
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+>>>>>>> e82424832573d06051b4e9703de76c4721b3c079
         ),
+        SizedBox(height: 16),
+        // Aquí colocarías el resto de la información del perfil que tienes en el código anterior.
       ],
     );
   }
 
+<<<<<<< HEAD
   // Construir la sección de documentos.
   Widget _buildDocumentsSection() {
     return Column(
@@ -191,3 +254,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+=======
+  void _showRegistrationForm(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: RegistrationFormScreen(),
+        );
+      },
+    );
+  }
+}
+>>>>>>> e82424832573d06051b4e9703de76c4721b3c079
