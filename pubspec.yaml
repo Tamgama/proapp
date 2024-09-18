@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  file_picker: ^5.2.3
 
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.10+1

@@ -1,10 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:proapp/screens/profile_screen/widgets/editprofile.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
-  final double profileCompletion =
-      1; // Porcentaje de completitud del perfil (por ejemplo, 100%)
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  double profileCompletion =
+      0.0; // Inicializamos el porcentaje de completitud del perfil.
+
+  // Mapa que guarda los datos actuales del perfil.
+  Map<String, String> _profileData = {
+    'Número de teléfono': '',
+    'Correo electrónico': '',
+    'DNI': '',
+    'Cuenta bancaria': '',
+    'Nóminas': '',
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    // Calcula el porcentaje de completitud al inicio.
+    _calculateProfileCompletion();
+  }
+
+  // Función para calcular el porcentaje de completitud del perfil.
+  void _calculateProfileCompletion() {
+    int totalFields =
+        _profileData.length; // Total de campos que se deben completar.
+    int completedFields = _profileData.values
+        .where((value) => value.isNotEmpty)
+        .length; // Campos completados.
+    setState(() {
+      profileCompletion =
+          completedFields / totalFields; // Calcula el porcentaje.
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,54 +49,80 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // Imagen de perfil
             CircleAvatar(
               radius: 50,
-              backgroundImage: NetworkImage(
-                  'https://www.example.com/profile.jpg'), // Reemplaza con la URL de la imagen de perfil
+              backgroundImage: AssetImage('assets/profile.png'),
             ),
             SizedBox(height: 16),
+            // Nombre del usuario
             Text(
               'Tamara García',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16),
+            // Indicador de completitud del perfil
             _buildProfileCompletion(),
             SizedBox(height: 16),
-            _buildContactSection(context),
+            // Botón para editar perfil en el medio
+            _buildEditProfileButton(context),
             SizedBox(height: 16),
-            _buildDocumentsSection(context),
+            // Sección de contacto
+            _buildContactSection(),
             SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Acción al presionar el botón de edición
-              },
-              child: Text('Editar Perfil'),
-            ),
+            // Sección de documentos
+            _buildDocumentsSection(),
           ],
         ),
       ),
     );
   }
 
+  // Botón para editar perfil (solo el texto en negrita).
+  Widget _buildEditProfileButton(BuildContext context) {
+    return TextButton(
+      onPressed: () async {
+        // Navega a la pantalla de edición y espera los datos de retorno.
+        final result = await Navigator.push<Map<String, String>>(
+          context,
+          MaterialPageRoute(builder: (context) => EditProfileScreen()),
+        );
+        // Si el usuario añade información, actualizamos el perfil.
+        if (result != null) {
+          setState(() {
+            _profileData.addAll(result);
+            _calculateProfileCompletion(); // Recalculamos el porcentaje de completitud.
+          });
+        }
+      },
+      child: Text(
+        'Editar Perfil',
+        style: TextStyle(
+            fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+      ),
+    );
+  }
+
+  // Construir el indicador de completitud del perfil.
   Widget _buildProfileCompletion() {
     if (profileCompletion >= 1.0) {
+      // Si el perfil está completo, muestra un icono de check.
       return Column(
         children: [
-          Icon(Icons.check_circle,
-              color: Color.fromARGB(255, 20, 70, 21), size: 48),
+          Icon(Icons.check_circle, color: Colors.green, size: 30),
           SizedBox(height: 8),
           Text(
             'Perfil completado',
-            style: TextStyle(
-                fontSize: 18, color: const Color.fromARGB(255, 0, 0, 0)),
+            style: TextStyle(fontSize: 14, color: Colors.black),
           ),
         ],
       );
     } else {
+      // Si el perfil no está completo, muestra el porcentaje de progreso.
       return Column(
         children: [
           LinearProgressIndicator(
-            value: profileCompletion,
+            value: profileCompletion, // Progreso actual.
             minHeight: 10,
           ),
           SizedBox(height: 8),
@@ -74,7 +135,8 @@ class ProfileScreen extends StatelessWidget {
     }
   }
 
-  Widget _buildContactSection(BuildContext context) {
+  // Construir la sección de contacto.
+  Widget _buildContactSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -84,24 +146,22 @@ class ProfileScreen extends StatelessWidget {
         ),
         ListTile(
           leading: Icon(Icons.phone, color: Colors.black),
-          title: Text('123-456-7890'),
-          trailing: _buildTrailingIcon(context, true, 'móvil'),
-        ),
-        ListTile(
-          leading: Icon(Icons.phone, color: Colors.black),
-          title: Text('098-765-4321'),
-          trailing: _buildTrailingIcon(context, false, 'otro teléfono'),
+          title: Text(_profileData['Número de teléfono']!.isNotEmpty
+              ? _profileData['Número de teléfono']!
+              : 'No proporcionado'),
         ),
         ListTile(
           leading: Icon(Icons.email, color: Colors.black),
-          title: Text('usuario@example.com'),
-          trailing: _buildTrailingIcon(context, true, 'correo'),
+          title: Text(_profileData['Correo electrónico']!.isNotEmpty
+              ? _profileData['Correo electrónico']!
+              : 'No proporcionado'),
         ),
       ],
     );
   }
 
-  Widget _buildDocumentsSection(BuildContext context) {
+  // Construir la sección de documentos.
+  Widget _buildDocumentsSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -110,63 +170,24 @@ class ProfileScreen extends StatelessWidget {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         ListTile(
-          leading:
-              Icon(Icons.assignment_ind, color: Color.fromARGB(255, 0, 0, 0)),
-          title: Text('DNI: 12345678X'),
-          trailing: _buildTrailingIcon(context, true, 'DNI'),
+          leading: Icon(Icons.assignment_ind, color: Colors.black),
+          title: Text(_profileData['DNI']!.isNotEmpty
+              ? _profileData['DNI']!
+              : 'No proporcionado'),
         ),
         ListTile(
-          leading: Icon(Icons.assignment, color: Color.fromARGB(255, 0, 0, 0)),
-          title: Text('Nóminas: Completo'),
-          trailing: _buildTrailingIcon(context, true, 'nóminas'),
+          leading: Icon(Icons.credit_card, color: Colors.black),
+          title: Text(_profileData['Cuenta bancaria']!.isNotEmpty
+              ? _profileData['Cuenta bancaria']!
+              : 'No proporcionado'),
         ),
         ListTile(
-          leading: Icon(Icons.credit_card, color: Color.fromARGB(255, 0, 0, 0)),
-          title: Text('Cuenta bancaria: Completo'),
-          trailing: _buildTrailingIcon(context, true, 'nóminas'),
+          leading: Icon(Icons.assignment, color: Colors.black),
+          title: Text(_profileData['Nóminas']!.isNotEmpty
+              ? _profileData['Nóminas']!
+              : 'No proporcionado'),
         ),
       ],
-    );
-  }
-
-  Widget _buildTrailingIcon(
-      BuildContext context, bool isComplete, String item) {
-    if (isComplete) {
-      return Icon(Icons.check_circle, color: Color.fromARGB(255, 20, 70, 21));
-    } else {
-      return IconButton(
-        icon: Icon(Icons.more_vert),
-        onPressed: () {
-          _showAddItemDialog(context, item);
-        },
-      );
-    }
-  }
-
-  void _showAddItemDialog(BuildContext context, String item) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Añadir $item'),
-          content: Text('Añadir $item correspondiente.'),
-          actions: [
-            TextButton(
-              child: Text('Cancelar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text('Añadir'),
-              onPressed: () {
-                // Acción para añadir el ítem
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

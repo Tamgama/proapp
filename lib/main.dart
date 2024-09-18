@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
                 onTap: () {
                   appState.setPage(0);
                 },
-                child: Text("Promurcia"),
+                child: Text("Home Pass"),
               ),
               actions: [
                 IconButton(
@@ -96,7 +96,7 @@ class HomePage extends StatelessWidget {
                 onTap: () {
                   appState.setPage(0);
                 },
-                child: const Text("Promurcia"),
+                child: const Text("Home Pass"),
               ),
               actions: [
                 Builder(
@@ -118,7 +118,7 @@ class HomePage extends StatelessWidget {
                 onTap: () {
                   appState.setPage(0);
                 },
-                child: const Text("Promurcia"),
+                child: const Text("Home Pass"),
               ),
               actions: [
                 ElevatedButton(
