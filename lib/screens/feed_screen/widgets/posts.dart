@@ -4,7 +4,7 @@ import 'package:proapp/screens/feed_screen/widgets/filters.dart';
 import 'package:provider/provider.dart';
 import 'package:proapp/widgets/layout.dart';
 import 'package:proapp/screens/homes_screen/widgets/home.dart';
-import 'package:proapp/screens/registration/registration.dart';
+import 'package:proapp/screens/profile_screen/widgets/registration.dart';
 
 class BigCard extends StatelessWidget {
   final Home home;
@@ -286,7 +286,9 @@ class BigCard extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => RegistrationFormScreen()),
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  UnregisteredProfileScreen()),
                         );
                       },
                       child: Text(

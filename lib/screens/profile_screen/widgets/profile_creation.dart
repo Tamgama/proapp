@@ -1,41 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:proapp/screens/profile_screen/profile.dart';
 
-class EditProfileScreen extends StatefulWidget {
+class CreateProfileScreen extends StatefulWidget {
   @override
-  _EditProfileScreenState createState() => _EditProfileScreenState();
+  _CreateProfileScreenState createState() => _CreateProfileScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
+class _CreateProfileScreenState extends State<CreateProfileScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  // Controladores para los campos
-  final TextEditingController _dniController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _accountController = TextEditingController();
   String _selectedNominaFile = '';
+
+  // Mapa para almacenar los datos del perfil
+  Map<String, dynamic> profileData = {
+    'Nombre': null,
+    'Correo electrónico': null,
+    'Cuenta bancaria': null,
+    'Nóminas': null,
+  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editar Perfil'),
+        title: Text('Registrar Perfil'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
-          child: Column(
+          child: ListView(
             children: [
-              // Campo de DNI
+              // Campo de nombre
               TextFormField(
-                controller: _dniController,
-                decoration: InputDecoration(labelText: 'DNI'),
-                validator: _validateDNI,
-                onSaved: (value) {
-                  if (value != null) {
-                    _dniController.text =
-                        value.toUpperCase(); // Convertir a mayúsculas
+                controller: _nameController,
+                decoration: InputDecoration(labelText: 'Nombre Completo'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, introduce tu nombre.';
                   }
+                  return null;
                 },
               ),
               SizedBox(height: 16),
@@ -51,12 +58,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               // Campo de cuenta bancaria
               TextFormField(
                 controller: _accountController,
-                decoration: InputDecoration(labelText: 'Cuenta Bancaria'),
+                decoration:
+                    InputDecoration(labelText: 'Cuenta Bancaria (IBAN)'),
                 validator: _validateBankAccount,
               ),
               SizedBox(height: 16),
 
-              // Selección de nóminas (solo formatos PDF, JPG, PNG)
+              // Selección de archivo de nómina
               ElevatedButton(
                 onPressed: _pickNominaFile,
                 child: Text(_selectedNominaFile.isEmpty
@@ -65,35 +73,33 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               SizedBox(height: 16),
 
-              // Botón para guardar cambios
+              // Botón para completar el registro
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    Navigator.pop(context, {
-                      'DNI': _dniController.text,
-                      'Correo electrónico': _emailController.text,
-                      'Cuenta bancaria': _accountController.text,
-                      'Nóminas': _selectedNominaFile,
-                    });
+                    profileData['Nombre'] = _nameController.text;
+                    profileData['Correo electrónico'] = _emailController.text;
+                    profileData['Cuenta bancaria'] = _accountController.text;
+                    profileData['Nóminas'] = _selectedNominaFile;
+
+                    // Navegar a la pantalla de perfil completado
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ProfileScreen(profileData: profileData),
+                      ),
+                    );
                   }
                 },
-                child: Text('Guardar'),
+                child: Text('Completar Registro'),
               ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  // Validación del DNI
-  String? _validateDNI(String? value) {
-    final RegExp dniRegex = RegExp(r'^\d{8}[A-Z]$');
-    if (value == null || !dniRegex.hasMatch(value.toUpperCase())) {
-      return 'El DNI debe contener 8 números y una letra mayúscula.';
-    }
-    return null;
   }
 
   // Validación del correo electrónico
@@ -107,7 +113,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   // Validación de cuenta bancaria
   String? _validateBankAccount(String? value) {
-    // Ejemplo de validación de IBAN básico. Puedes adaptarlo según el país.
     final RegExp bankRegex = RegExp(r'^[A-Z]{2}\d{22}$');
     if (value == null || !bankRegex.hasMatch(value)) {
       return 'Introduce una cuenta bancaria válida (formato IBAN).';
@@ -115,23 +120,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return null;
   }
 
-  // Función para seleccionar un archivo de nómina (solo formatos PDF, JPG, PNG)
+  // Simulación de la selección de archivo
   Future<void> _pickNominaFile() async {
-    // Aquí deberías usar un picker de archivos (por ejemplo, `file_picker` package).
-    // Solo se acepta PDF, JPG, PNG.
-    // Por ahora, simularemos la selección de un archivo:
-    String filePath =
-        '../assets/nomina.png'; // Simulación de selección de archivo.
-    if (filePath.endsWith('.pdf') ||
-        filePath.endsWith('.jpg') ||
-        filePath.endsWith('.png')) {
-      setState(() {
-        _selectedNominaFile = filePath;
-      });
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Solo se permiten archivos PDF, JPG o PNG.')),
-      );
-    }
+    setState(() {
+      _selectedNominaFile = 'nomina.pdf'; // Simulación
+    });
   }
 }

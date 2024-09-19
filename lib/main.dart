@@ -9,7 +9,6 @@ import 'package:proapp/screens/reels_screen/videos.dart';
 import 'package:proapp/screens/saved_screen/favorites.dart';
 import 'package:proapp/screens/search_screen/searchs.dart';
 import 'package:proapp/screens/homes_screen/widgets/home.dart';
-import 'package:proapp/screens/registration/registration.dart';
 
 void main() {
   // ejecución pa iniciar la app
@@ -275,12 +274,12 @@ class MyAppState extends ChangeNotifier {
   }
 
   void navigateToPage(int index) {
-    if (!_isProfileCreated && index == 4) {  // Si intentan ir al perfil sin haber creado uno
-      currentPage = 5;  // Redirige al formulario de registro
+    if (!_isProfileCreated && index == 4) {
+      // Si intentan ir al perfil sin haber creado uno
+      currentPage = 5; // Redirige al formulario de registro
     } else {
       currentPage = index;
     }
     notifyListeners();
   }
 }
-
