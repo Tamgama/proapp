@@ -44,8 +44,8 @@ class HomePage extends StatelessWidget {
     FeedScreen(),
     ReelsScreen(),
     SearchsScreen(),
-    FavScreen(),
-    ProfileScreen(),
+    FavScreen(), // Pantalla de favoritos -guardados-
+    ProfileScreen(), // Pantalla del perfil
   ];
 
   @override
@@ -75,7 +75,7 @@ class HomePage extends StatelessWidget {
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: appState.currentPage,
               onTap: (index) {
-                appState.setPage(index);
+                appState.navigateToPage(index); // Redirige según perfil creado
               },
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
@@ -180,8 +180,6 @@ class HomePage extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
-  // subclase
-
   final List<Home> _allHomes = [
     Home(
       imagePaths: [
@@ -193,8 +191,7 @@ class MyAppState extends ChangeNotifier {
         "assets/casa6.png"
       ],
       title: "Casa en el Campo",
-      description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer semper semper varius. Quisque lobortis odio gravida metus semper, at placerat urna sodales. Duis dapibus risus eget augue malesuada bibendum. Ut posuere nunc et leo egestas, ut accumsan purus iaculis. Morbi cursus sollicitudin tempus. Vestibulum sed sapien laoreet, finibus augue eu, pellentesque augue. Fusce et nibh consequat lectus ultricies rutrum. Maecenas ornare nec dolor at pharetra. Suspendisse imperdiet sit amet eros ac aliquam. Nullam vel dolor ut odio egestas maximus. Quisque efficitur mauris massa, ac pulvinar lectus accumsan non. Nulla faucibus sem quis molestie mollis. In molestie elit quis vehicula interdum. ",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       price: "250,000€",
       street: "Calle Ejemplo",
       city: "Murcia",
@@ -275,7 +272,6 @@ class MyAppState extends ChangeNotifier {
 
   void navigateToPage(int index) {
     if (!_isProfileCreated && index == 4) {
-      // Si intentan ir al perfil sin haber creado uno
       currentPage = 5; // Redirige al formulario de registro
     } else {
       currentPage = index;
