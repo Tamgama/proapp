@@ -460,7 +460,7 @@ class BigCard extends StatelessWidget {
             ),
             Expanded(
               flex: 2,
-              child: Container(
+              child: SizedBox(
                 height: 600, // Ajusta la altura del panel de filtros
                 child: SingleChildScrollView(
                   child: FilterPanel(

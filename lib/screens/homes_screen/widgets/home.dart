@@ -62,7 +62,7 @@ class HomeDetails extends StatelessWidget {
           appBar: AppBar(),
           body: Column(
             children: [
-              Container(
+              SizedBox(
                 height: 400,
                 child: Center(
                   child: ConstrainedBox(
@@ -113,7 +113,7 @@ class HomeDetails extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     height: 400,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
